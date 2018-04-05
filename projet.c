@@ -1,18 +1,18 @@
 #include "tp4.h"
+#include "objets.h"
 
 float angle=0.0;
 point eye;
-matrice_plan R;
-matrice_plan tmp;
 point sHead;
 point mvt;
 void affichage();
 void Animer();
-void GererClavier();
+void GererClavier(unsigned char touche, int x, int y);
+void rotationSerpent(float x);
 
 int main(int argc, char* argv[]){
-    eye.x = -6; eye.y = 0; eye.z = 5;
-    sHead.x = -2.01; sHead.y = 0; sHead.z = 1.8;
+    eye.x = -20; eye.y = 0; eye.z = 10;
+    sHead.x = 0; sHead.y = 0; sHead.z = 1.8;
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH);
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
     glutInitWindowSize(800, 800);
     glutInitWindowPosition(100, 100);
 
-    glutCreateWindow("Fenetre du TP6");
+    glutCreateWindow("Solid Snek");
 
     glEnable(GL_DEPTH_TEST);
     glutDisplayFunc(affichage);
@@ -46,79 +46,7 @@ void affichage(){
     glEnd();
 
     // le serpent
-    glBegin(GL_POLYGON);
-    glColor3f(0.1, 0.5, 0.2);
-    glVertex3f(sHead.x+0.01, sHead.y-2, sHead.z-1.7);
-    glVertex3f(sHead.x+10.01, sHead.y-2, sHead.z-1.7);
-    glVertex3f(sHead.x+14.01, sHead.y, sHead.z-0.8);
-    glVertex3f(sHead.x+10.01, sHead.y+2, sHead.z-1.7);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z-1.7);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glColor3f(0.1, 0.5, 0.2);
-    glVertex3f(sHead.x+0.01, sHead.y-2, sHead.z-1.7);
-    glVertex3f(sHead.x+10.01, sHead.y-2, sHead.z-1.7);
-    glVertex3f(sHead.x+14.01, sHead.y, sHead.z-0.8);
-    glVertex3f(sHead.x+10.01, sHead.y+2, sHead.z+0.2);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z+0.2);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glColor3f(0.1, 0.5, 0.2);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z-1.7);
-    glVertex3f(sHead.x+10.01, sHead.y+2, sHead.z-1.7);
-    glVertex3f(sHead.x+14.01, sHead.y, sHead.z-0.8);
-    glVertex3f(sHead.x+10.01, sHead.y+2, sHead.z+0.2);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z+0.2);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glColor3f(0.1, 0.5, 0.2);
-    glVertex3f(sHead.x+0.01, sHead.y-2, sHead.z+0.2);
-    glVertex3f(sHead.x+10.01, sHead.y-2, sHead.z+0.2);
-    glVertex3f(sHead.x+14.01, sHead.y, sHead.z-0.8);
-    glVertex3f(sHead.x+10.01, sHead.y+2, sHead.z+0.2);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z+0.2);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(0.1, 0.5, 0.2);
-    glVertex3f(sHead.x+0.01, sHead.y-2, sHead.z-1.7);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z-1.7);
-    glVertex3f(sHead.x+0.01, sHead.y+2, sHead.z+0.2);
-    glVertex3f(sHead.x+0.01, sHead.y-2, sHead.z+0.2);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(0, 0, 1);
-    glVertex3f(sHead.x, sHead.y+1.6, sHead.z+0.2);
-    glVertex3f(sHead.x, sHead.y+1.6, sHead.z-0.4);
-    glVertex3f(sHead.x, sHead.y+1, sHead.z-0.4);
-    glVertex3f(sHead.x, sHead.y+1, sHead.z+0.2);
-    glEnd();
-    
-    glBegin(GL_QUADS);
-    glColor3f(0, 0, 1);
-    glVertex3f(sHead.x, sHead.y-1.0, sHead.z+0.2);
-    glVertex3f(sHead.x, sHead.y-1.0, sHead.z-0.4);
-    glVertex3f(sHead.x, sHead.y-1.6, sHead.z-0.4);
-    glVertex3f(sHead.x, sHead.y-1.6, sHead.z+0.2);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3f(1, 1, 1);
-    glVertex3f(sHead.x, sHead.y+0.9, sHead.z-0.8);
-    glVertex3f(sHead.x, sHead.y+0.7, sHead.z-0.8);
-    glVertex3f(sHead.x, sHead.y+0.8, sHead.z-1.6);
-    glEnd();
-    
-    glBegin(GL_POLYGON);
-    glColor3f(1, 1, 1);
-    glVertex3f(sHead.x, sHead.y-0.9, sHead.z-0.8);
-    glVertex3f(sHead.x, sHead.y-0.7, sHead.z-0.8);
-    glVertex3f(sHead.x, sHead.y-0.8, sHead.z-1.6);
-    glEnd();
+    serpent(sHead.x, sHead.y, sHead.z);
     
     glutIdleFunc(Animer);
     glutKeyboardFunc(GererClavier);
@@ -127,13 +55,26 @@ void affichage(){
 }
 
 void Animer(){
-    mvt.x=-0.1;
-    sHead.x+=mvt.x;
+    mvt.x = 0.01;
+    sHead.x += mvt.x;
     glutPostRedisplay();
 }
 
 void GererClavier(unsigned char touche, int x, int y){
+
     switch(touche){
-    case 'z' : mvt.x=-0.1; break;
+    case 'z' : sHead.x += mvt.x; break; // ne marche pas
+    case 'q' : angle = 0.1;
+        sHead.x = (cos(angle)*sHead.x)+(-sin(angle)*sHead.y);
+        sHead.y = (sin(angle)*sHead.x)+(cos(angle)*sHead.y);
+        break;
+    case 's' : sHead.x += mvt.x; break; // ne marche pas
+    case 'd' : angle = -0.1;
+        sHead.x = (cos(angle)*sHead.x)+(-sin(angle)*sHead.y);
+        sHead.y = (sin(angle)*sHead.x)+(cos(angle)*sHead.y);
+        break;
     }
+}
+
+void rotationSerpent(float x){
 }
