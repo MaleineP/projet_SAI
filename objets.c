@@ -1,72 +1,133 @@
 #include "objets.h"
 
-void buisson(int x, int y, int z){
+buisson buisson_crea(float x, float y, float z){
+  GLdouble radius = rand()%10+4;
+  buisson b;
+  b.radius = radius;
+  b.p.x = x;
+  b.p.y = y;
+  b.p.z = z;
+  return b;
+}
+
+void affiche_buisson(buisson b){
   
   glPushMatrix();
   
-  glTranslatef(x,y,z);
+  glTranslatef(b.p.x, b.p.y, b.p.z);
   glColor3f(0.01, 0.5, 0.08);
   
   GLUquadric *myQuad;
-  GLdouble radius = rand()%10+4;
   GLint slices, stacks;
   
   myQuad=gluNewQuadric();
   slices = stacks = 10;
-  gluSphere( myQuad , radius , slices , stacks  );
+  gluSphere( myQuad , b.radius , slices , stacks  );
   
   glPopMatrix();
 }
 
-void immeuble(int x, int y, int z){
-  int hauteur, largeur;
-  hauteur = rand()%50+10;
+maison maison_crea(float x, float y, float z){
+  maison m;
+  int longueur, largeur, hauteur;
+  longueur = rand()%20+5;
   largeur = rand()%20+5;
-  
-  glColor3f(0.5, 0.3, 0.2);
+  hauteur = rand()%30+5;
+  m.longueur = longueur;
+  m.largeur = largeur;
+  m.hauteur = hauteur;
+  m.p.x = x;
+  m.p.y = y;
+  m.p.z = z;
+  return m;
+}
+
+void affiche_maison(maison m){
   
   glBegin(GL_QUADS);
 
-  glVertex3f(x, y, z);
-  glVertex3f(x+largeur, y, z);
-  glVertex3f(x+largeur, y, z+hauteur);
-  glVertex3f(x, y, z+hauteur);
+  glColor3f(0.4, 0.3, 0.2);
+  
+  glVertex3f(m.p.x, m.p.y, m.p.z);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
 
-  glVertex3f(x+largeur, y, z);
-  glVertex3f(x+largeur, y+largeur, z);
-  glVertex3f(x+largeur, y+largeur, z+hauteur);
-  glVertex3f(x+largeur, y, z+hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
 
-  glVertex3f(x+largeur, y+largeur, z);
-  glVertex3f(x, y+largeur, z);
-  glVertex3f(x, y+largeur, z+hauteur);
-  glVertex3f(x+largeur, y+largeur, z+hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z);
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z);
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
 
-  glVertex3f(x, y, z);
-  glVertex3f(x, y+largeur, z);
-  glVertex3f(x, y+largeur, z+hauteur);
-  glVertex3f(x, y, z+hauteur);
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z);
+  glVertex3f(m.p.x, m.p.y, m.p.z);
+  glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
 
-  glVertex3f(x,y,z+hauteur);
-  glVertex3f(x+largeur, y, z+hauteur);
-  glVertex3f(x+largeur, y+largeur, z+hauteur);
-  glVertex3f(x, y+largeur, z+hauteur);
+  glColor3f(0.5, 0, 0);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+
+  glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+
+  glEnd();
  
+  glBegin(GL_TRIANGLES);
+  
+  glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+
+  glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+
   glEnd();
 
   
 }
 
-void arbre(int x, int y, int z){
+arbre arbre_crea(float x, float y, float z){
   int hauteur, rayon, alea;
+  GLdouble radius;
+  arbre a;
   hauteur = rand()%20+5;
   rayon = hauteur/5;
   alea = rand()%2;
+  a.p.x = x;
+  a.p.y = y;
+  a.p.z = z;
+  a.t.hauteur = hauteur;
+  a.t.rayon = rayon;
+  a.type = alea;
+  if(alea == 1){
+    rayon = rand()%5+2;
+    hauteur = rand()%10+4;
+    a.feuille.rayon = rayon;
+    a.feuille.hauteur = hauteur;
+  }
+  else{
+    radius = rand()%10+4;
+    a.feuille.radius = radius;
+  }
+  return a;
+}
+
+void affiche_arbre(arbre a){
   
   glPushMatrix();
 
   
-  glTranslatef(x,y,z);
+  glTranslatef(a.p.x, a.p.y, a.p.z);
   
   GLUquadric* params;
   
@@ -74,31 +135,40 @@ void arbre(int x, int y, int z){
   
   glColor3f(0.47, 0.27, 0.12);
   
-  gluCylinder(params, rayon, 0, hauteur, 20, 1);
+  gluCylinder(params, a.t.rayon, 0, a.t.hauteur, 20, 1);
 
-  switch(alea){
-  case 0: buisson(x, y, z+hauteur); break;
-  case 1: pin(x,y,z+hauteur); break;
-  default: pin(x,y,z+hauteur); break;
+  switch(a.type){
+    
+  case 0:
+    glPushMatrix();
+    glTranslatef(a.p.x, a.p.y, a.p.z + a.t.hauteur);
+    glColor3f(0.01, 0.5, 0.08);
+  
+    GLUquadric *myQuad;
+    GLint slices, stacks;
+  
+    myQuad=gluNewQuadric();
+    slices = stacks = 10;
+    gluSphere( myQuad , a.feuille.radius , slices , stacks  );
+  
+    glPopMatrix();
+    break;
+    
+  default:
+    params = gluNewQuadric();
+  
+    glPushMatrix();
+    glTranslatef(a.p.x, a.p.y, a.p.z + a.t.hauteur);
+  
+    glColor3f(0.01, 0.25, 0.08);
+    gluCylinder(params, a.feuille.rayon, 0, a.feuille.hauteur, 20, 1);
+
+    glPopMatrix();
+    break;
   }
   
   glPopMatrix();
   
-}
-
-void pin(int x, int y, int z){
-  int rayon = rand()%5+2;
-  int hauteur = rand()%10+4;
-  GLUquadric* params;
-  params = gluNewQuadric();
-  
-  glPushMatrix();
-  glTranslatef(x,y,z);
-  
-  glColor3f(0.01, 0.25, 0.08);
-  gluCylinder(params, rayon, 0, hauteur, 20, 1);
-
-  glPopMatrix();
 }
 
 void serpent(int x, int y, int z){
