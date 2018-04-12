@@ -100,3 +100,79 @@ void pin(int x, int y, int z){
 
   glPopMatrix();
 }
+
+void serpent(int x, int y, int z){
+    glBegin(GL_POLYGON);
+    glColor3f(0.1, 0.5, 0.2);
+    glVertex3f(x+ 0.01, y -2, z -1.7);
+    glVertex3f(x+ 10.01, y -2, z -1.7);
+    glVertex3f(x+ 14.01, y , z -0.8);
+    glVertex3f(x+ 10.01, y +2, z -1.7);
+    glVertex3f(x+ 0.01, y +2, z -1.7);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(0.1, 0.5, 0.2);
+    glVertex3f(x+ 0.01, y -2, z -1.7);
+    glVertex3f(x+ 10.01, y -2, z -1.7);
+    glVertex3f(x+ 14.01, y , z -0.8);
+    glVertex3f(x+ 10.01, y +2, z +0.2);
+    glVertex3f(x+ 0.01, y +2, z +0.2);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.1, 0.5, 0.2);
+    glVertex3f(x+ 0.01, y +2, z -1.7);
+    glVertex3f(x+ 10.01, y +2, z -1.7);
+    glVertex3f(x+ 14.01, y , z -0.8);
+    glVertex3f(x+ 10.01, y +2, z +0.2);
+    glVertex3f(x+ 0.01, y +2, z +0.2);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(0.1, 0.5, 0.2);
+    glVertex3f(x+ 0.01, y -2, z +0.2);
+    glVertex3f(x+ 10.01, y -2, z +0.2);
+    glVertex3f(x+ 14.01, y , z -0.8);
+    glVertex3f(x+ 10.01, y +2, z +0.2);
+    glVertex3f(x+ 0.01, y +2, z +0.2);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.1, 0.5, 0.2);
+    glVertex3f(x+ 0.01, y -2, z -1.7);
+    glVertex3f(x+ 0.01, y +2, z -1.7);
+    glVertex3f(x+ 0.01, y +2, z +0.2);
+    glVertex3f(x+ 0.01, y -2, z +0.2);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0, 0, 1);
+    glVertex3f(x , y +1.6, z +0.2);
+    glVertex3f(x , y +1.6, z -0.4);
+    glVertex3f(x , y +1, z -0.4);
+    glVertex3f(x , y +1, z +0.2);
+    glEnd();
+    
+    glBegin(GL_QUADS);
+    glColor3f(0, 0, 1);
+    glVertex3f(x , y -1.0, z +0.2);
+    glVertex3f(x , y -1.0, z -0.4);
+    glVertex3f(x , y -1.6, z -0.4);
+    glVertex3f(x , y -1.6, z +0.2);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(1, 1, 1);
+    glVertex3f(x , y +0.9, z -0.8);
+    glVertex3f(x , y +0.7, z -0.8);
+    glVertex3f(x , y +0.8, z -1.6);
+    glEnd();
+    
+    glBegin(GL_POLYGON);
+    glColor3f(1, 1, 1);
+    glVertex3f(x , y -0.9, z -0.8);
+    glVertex3f(x , y -0.7, z -0.8);
+    glVertex3f(x , y -0.8, z -1.6);
+    glEnd();
+}
