@@ -1,7 +1,6 @@
-#include "tp4.h"
 #include "objets.h"
 
-float angle=0.0;
+int angle=0;
 point eye;
 point sHead;
 point mvt;
@@ -11,9 +10,9 @@ void GererClavier(unsigned char touche, int x, int y);
 void rotationSerpent(float x);
 
 int main(int argc, char* argv[]){
-    eye.x = -20; eye.y = 0; eye.z = 10;
+    eye.x = 20; eye.y = 0; eye.z = 10;
     sHead.x = 0; sHead.y = 0; sHead.z = 1.8;
-    
+    srand(time(NULL));
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH);
 
@@ -44,9 +43,13 @@ void affichage(){
     glVertex3f(200,100,0);
     glVertex3f(200,-100,0);
     glEnd();
-
-    // le serpent
-    serpent(sHead.x, sHead.y, sHead.z);
+    
+    glPushMatrix();
+    glTranslatef(sHead.x, sHead.y, 0);
+    glRotatef(angle, 0, 0, 1);
+    glTranslatef(-sHead.x, -sHead.y, 0);
+    serpent(sHead.x, sHead.y, sHead.z+1.8);
+    glPopMatrix();
     
     glutIdleFunc(Animer);
     glutKeyboardFunc(GererClavier);
@@ -55,26 +58,28 @@ void affichage(){
 }
 
 void Animer(){
-    mvt.x = 0.01;
+    mvt.x = 0;
+    mvt.y = 0;
+    switch(angle){
+    case 0 : mvt.x = -0.01; break;
+    case 90: case -270 : mvt.y = -0.01; break;
+    case 180: case -180 : mvt.x = 0.01; break;
+    case 270: case -90 : mvt.y = 0.01; break;
+    default : ;
+    }
     sHead.x += mvt.x;
+    sHead.y += mvt.y;
     glutPostRedisplay();
 }
 
 void GererClavier(unsigned char touche, int x, int y){
 
     switch(touche){
-    case 'z' : sHead.x += mvt.x; break; // ne marche pas
-    case 'q' : angle = 0.1;
-        sHead.x = (cos(angle)*sHead.x)+(-sin(angle)*sHead.y);
-        sHead.y = (sin(angle)*sHead.x)+(cos(angle)*sHead.y);
+    case 'q' : angle += 10;
+        if(angle >=360) angle = 0;
         break;
-    case 's' : sHead.x += mvt.x; break; // ne marche pas
-    case 'd' : angle = -0.1;
-        sHead.x = (cos(angle)*sHead.x)+(-sin(angle)*sHead.y);
-        sHead.y = (sin(angle)*sHead.x)+(cos(angle)*sHead.y);
+    case 'd' : angle += -10;
+        if(angle <= -360) angle = 0;
         break;
     }
-}
-
-void rotationSerpent(float x){
 }
