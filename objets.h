@@ -1,6 +1,10 @@
 #include "tp4.h"
 #include <time.h>
 
+typedef struct ennemi{
+  point p;
+}ennemi;
+
 typedef struct buisson{
   GLdouble radius;
   point p;
@@ -35,12 +39,16 @@ typedef struct objet{
   buisson b;
   maison m;
   arbre a;
-  int type; // 1 = buisson; 2 = maison; 3 = arbre; 0 = vide
+  ennemi e;
+  int type; // 1 = buisson; 2 = maison; 3 = arbre; 0 = vide; 4 = ennemi
 }objet;
 
 
 objet creer_objet(int x, int y);
 
+
+ennemi creer_ennemi(float x, float y, float z);
+void affiche_ennemi(ennemi e);
 
 buisson buisson_crea(float x, float y, float z);
 void affiche_buisson(buisson b);

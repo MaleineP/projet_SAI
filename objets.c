@@ -17,6 +17,59 @@ objet creer_objet(int x, int y){
   return o;
 }
 
+ennemi creer_ennemi(float x, float y, float z){
+  ennemi e;
+  Point p;
+  p.x = x;
+  p.y = y;
+  p.z = z;
+  e.p = p;
+}
+
+void affiche_ennemi(ennemi e){
+
+  glPushMatrix();
+  
+  glTranslatef(e.p.x, e.p.y, e.p.z);
+  glColor3f(1, 0, 0);
+  GLUquadric *myQuad;
+  GLint slices, stacks;
+  myQuad=gluNewQuadric();
+  slices = stacks = 10;
+  gluSphere( myQuad , 10 , slices , stacks  );
+  
+  glPopMatrix();
+  
+  glBegin(GL_QUADS);
+
+  glVertex3f(e.p.x, e.p.y, e.p.z+4);
+  glVertex3f(e.p.x, e.p.y + 3, e.p.z+4);
+  glVertex3f(e.p.x, e.p.y + 5, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y-2, e.p.z+14);
+  
+  glVertex3f(e.p.x, e.p.y + 3, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y+5, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y+5, e.p.z+14);
+  
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y + 5, e.p.z+14);
+  glVertex3f(e.p.x+3, e.p.y-2, e.p.z+14);
+  
+  glVertex3f(e.p.x, e.p.y, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+4);
+  glVertex3f(e.p.x+3, e.p.y -2, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y-2, e.p.z+14);
+  
+  glVertex3f(e.p.x, e.p.y, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y+3, e.p.z+14);
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+14);
+  glVertex3f(e.p.x+3, e.p.y+3, e.p.z+14);
+
+}
+
+
 
 buisson buisson_crea(float x, float y, float z){
   GLdouble radius = rand()%10+4;
