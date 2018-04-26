@@ -1,4 +1,4 @@
-#include "objets.h"
+#include "grille.h"
 
 int angle=0;
 point eye;
@@ -33,7 +33,7 @@ void affichage(){
     glLoadIdentity();
 
     gluPerspective(75, 1, 0.5, 1000);
-    gluLookAt(eye.x, eye.y, eye.z, 0, 0, 0, 0, 0, 1);
+    gluLookAt(eye.x, eye.y, eye.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
 
     // Plan de départ
     glBegin(GL_QUADS);
@@ -58,14 +58,18 @@ void affichage(){
 }
 
 void Animer(){
-    mvt.x = 0;
-    mvt.y = 0;
+    point tmp;
+    tmp.x = mvt.x;
+    tmp.y = mvt.y;
+    mvt.x = 0; mvt.y =0;
     switch(angle){
     case 0 : mvt.x = -0.01; break;
     case 90: case -270 : mvt.y = -0.01; break;
     case 180: case -180 : mvt.x = 0.01; break;
     case 270: case -90 : mvt.y = 0.01; break;
-    default : ;
+    default : mvt.x = -0.01*(tmp.x*cos(angle)+tmp.y*(-sin(angle)));
+        mvt.y = -0.01*(tmp.x*sin(angle)+tmp.y*cos(angle));
+        break;
     }
     sHead.x += mvt.x;
     sHead.y += mvt.y;
