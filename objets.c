@@ -1,5 +1,23 @@
 #include "objets.h"
 
+
+objet creer_objet(int x, int y){
+  float fx, fy;
+  int alea;
+  objet o = malloc(sizeof(objet));
+  fx = rand()%30 + x*30;
+  fy = rand()%30 + y*30;
+  alea = rand()%10;
+  switch(alea){
+  case 1 : o.type = 1; o.b = buisson_crea(fx, fy, 0); break;
+  case 2 : o.type = 2; o.m = maison_crea(fx, fy, 0); break;
+  case 3 : o.type = 3; o.a = arbre_crea(fx, fy, 0); break;
+  default : o.type = 0;
+  }
+  return o;
+}
+
+
 buisson buisson_crea(float x, float y, float z){
   GLdouble radius = rand()%10+4;
   buisson b;

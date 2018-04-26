@@ -38,6 +38,10 @@ typedef struct objet{
   int type; // 1 = buisson; 2 = maison; 3 = arbre; 0 = vide
 }objet;
 
+
+objet creer_objet(int x, int y);
+
+
 buisson buisson_crea(float x, float y, float z);
 void affiche_buisson(buisson b);
 

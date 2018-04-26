@@ -1,6 +1,9 @@
 
-prog : tp1.o tp3.o tp4.o karbre.o objets.o
-	gcc -Wall projet.c objets.o tp4.o karbre.o tp3.o tp1.o -o snake -lglut -lGLU -lGL -lm
+prog : tp1.o tp3.o tp4.o karbre.o objets.o grille.o
+	gcc -Wall projet.c objets.o grille.o tp4.o karbre.o tp3.o tp1.o -o snake -lglut -lGLU -lGL -lm
+
+grille : objet.o
+	gcc -Wall -c grille.c
 
 objets :
 	gcc -Wall -c objets.c
