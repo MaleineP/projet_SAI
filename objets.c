@@ -4,7 +4,7 @@
 objet creer_objet(int x, int y){
   float fx, fy;
   int alea;
-  objet o = malloc(sizeof(objet));
+  objet o;
   fx = rand()%30 + x*30;
   fy = rand()%30 + y*30;
   alea = rand()%10;
