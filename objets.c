@@ -19,11 +19,10 @@ objet creer_objet(int x, int y){
 
 ennemi creer_ennemi(float x, float y, float z){
   ennemi e;
-  Point p;
-  p.x = x;
-  p.y = y;
-  p.z = z;
-  e.p = p;
+  e.p.x = x;
+  e.p.y = y;
+  e.p.z = z;
+  return e;
 }
 
 void affiche_ennemi(ennemi e){
