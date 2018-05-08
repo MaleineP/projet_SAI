@@ -1,5 +1,6 @@
 #include "grille.h"
 
+grille grille_de_jeu;
 int angle=0;
 point eye;
 point sHead;
@@ -10,80 +11,85 @@ void GererClavier(unsigned char touche, int x, int y);
 void rotationSerpent(float x);
 
 int main(int argc, char* argv[]){
-    eye.x = 20; eye.y = 0; eye.z = 10;
-    sHead.x = 0; sHead.y = 0; sHead.z = 1.8;
-    srand(time(NULL));
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH);
+  grille_de_jeu = creer_grille();
+  eye.x = 20; eye.y = 0; eye.z = 10;
+  sHead.x = 0; sHead.y = 0; sHead.z = 1.8;
+    
+  srand(time(NULL));
+  glutInit(&argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH);
 
-    glutInitWindowSize(800, 800);
-    glutInitWindowPosition(100, 100);
+  glutInitWindowSize(800, 800);
+  glutInitWindowPosition(100, 100);
 
-    glutCreateWindow("Solid Snek");
+  glutCreateWindow("Solid Snek");
 
-    glEnable(GL_DEPTH_TEST);
-    glutDisplayFunc(affichage);
+  glEnable(GL_DEPTH_TEST);
+  glutDisplayFunc(affichage);
 
-    glutMainLoop();
-    return 0;
+  glutMainLoop();
+  return 0;
 }
 void affichage(){
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
 
-    gluPerspective(75, 1, 0.5, 1000);
-    gluLookAt(eye.x, eye.y, eye.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
+  gluPerspective(75, 1, 0.5, 1000);
+  gluLookAt(eye.x, eye.y, eye.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
 
-    // Plan de départ
-    glBegin(GL_QUADS);
-    glColor3f(1, 1, 1);
-    glVertex3f(-200,-100,0);
-    glVertex3f(-200,100,0);
-    glVertex3f(200,100,0);
-    glVertex3f(200,-100,0);
-    glEnd();
+  afficher_grille(grille_de_jeu);
+  /*
+  // Plan de départ
+  glBegin(GL_QUADS);
+  glColor3f(1, 1, 1);
+  glVertex3f(-200,-100,0);
+  glVertex3f(-200,100,0);
+  glVertex3f(200,100,0);
+  glVertex3f(200,-100,0);
+  glEnd();
+  */
     
-    glPushMatrix();
-    glTranslatef(sHead.x, sHead.y, 0);
-    glRotatef(angle, 0, 0, 1);
-    glTranslatef(-sHead.x, -sHead.y, 0);
-    serpent(sHead.x, sHead.y, sHead.z+1.8);
-    glPopMatrix();
+  glPushMatrix();
+  glTranslatef(sHead.x, sHead.y, 0);
+  glRotatef(angle, 0, 0, 1);
+  glTranslatef(-sHead.x, -sHead.y, 0);
+  serpent(sHead.x, sHead.y, sHead.z+1.8);
+  glPopMatrix();
     
-    glutIdleFunc(Animer);
-    glutKeyboardFunc(GererClavier);
+  glutIdleFunc(Animer);
+  glutKeyboardFunc(GererClavier);
 
-    glFlush();
+  glFlush();
 }
 
 void Animer(){
-    point tmp;
-    tmp.x = mvt.x;
-    tmp.y = mvt.y;
-    mvt.x = 0; mvt.y =0;
-    switch(angle){
-    case 0 : mvt.x = -0.01; break;
-    case 90: case -270 : mvt.y = -0.01; break;
-    case 180: case -180 : mvt.x = 0.01; break;
-    case 270: case -90 : mvt.y = 0.01; break;
-    default : mvt.x = -0.01*(tmp.x*cos(angle)+tmp.y*(-sin(angle)));
-        mvt.y = -0.01*(tmp.x*sin(angle)+tmp.y*cos(angle));
-        break;
-    }
-    sHead.x += mvt.x;
-    sHead.y += mvt.y;
-    glutPostRedisplay();
+  point tmp;
+  tmp.x = mvt.x;
+  tmp.y = mvt.y;
+  mvt.x = 0; mvt.y =0;
+  switch(angle){
+  case 0 : mvt.x = -0.01; break;
+  case 90: case -270 : mvt.y = -0.01; break;
+  case 180: case -180 : mvt.x = 0.01; break;
+  case 270: case -90 : mvt.y = 0.01; break;
+  default : mvt.x = -0.01*(tmp.x*cos(angle)+tmp.y*(-sin(angle)));
+    mvt.y = -0.01*(tmp.x*sin(angle)+tmp.y*cos(angle));
+    break;
+  }
+  sHead.x += mvt.x;
+  sHead.y += mvt.y;
+  glutPostRedisplay();
 }
 
 void GererClavier(unsigned char touche, int x, int y){
 
-    switch(touche){
-    case 'q' : angle += 10;
-        if(angle >=360) angle = 0;
-        break;
-    case 'd' : angle += -10;
-        if(angle <= -360) angle = 0;
-        break;
-    }
+  switch(touche){
+  case 'q' : angle += 10;
+    if(angle >=360) angle = 0;
+    break;
+  case 'd' : angle += -10;
+    if(angle <= -360) angle = 0;
+    break;
+  }
 }

@@ -4,13 +4,12 @@
 grille creer_grille(){
   int i,j;
   grille jeu = malloc(sizeof(objet*) * LONGUEUR/30);
-
-  for(i=0; i < LONGUEUR; i++){
+  for(i=0; i < LONGUEUR/30; i++){
     jeu[i] = malloc(sizeof(objet) * LARGEUR/30);
   }
 
-  for(i=0; i < LONGUEUR; i++){
-    for(j=0; j < LARGEUR; j++){
+  for(i=0; i < LONGUEUR/30; i++){
+    for(j=0; j < LARGEUR/30; j++){
 
       jeu[i][j] = creer_objet(i, j);
       
@@ -25,7 +24,6 @@ grille creer_grille(){
 void afficher_grille(grille jeu){
   int i, j;
   objet o;
-
   //bords de la map
   glColor3f(0.4, 0.3, 0.2);
 
@@ -61,8 +59,8 @@ void afficher_grille(grille jeu){
   glEnd();
 
   //affichage des objets
-  for(i = 0; i < LONGUEUR; i++){
-    for(j = 0; j < LARGEUR; j++){
+  for(i = 0; i < LONGUEUR/30; i++){
+    for(j = 0; j < LARGEUR/30; j++){
       
       o = jeu[i][j];
       switch(o.type){
