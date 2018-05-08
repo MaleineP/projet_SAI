@@ -5,6 +5,11 @@ typedef struct ennemi{
   point p;
 }ennemi;
 
+typedef struct bonus{
+  point p;
+  int type; // 0 = vitesse, 1 = vie
+}bonus;
+
 typedef struct buisson{
   GLdouble radius;
   point p;
@@ -40,12 +45,15 @@ typedef struct objet{
   maison m;
   arbre a;
   ennemi e;
-  int type; // 1 = buisson; 2 = maison; 3 = arbre; 0 = vide; 4 = ennemi
+  bonus bn;
+  int type; // 1 = buisson; 2 = maison; 3 = arbre; 0 = vide; 4 = ennemi; 5 = bonus
 }objet;
 
 
 objet creer_objet(int x, int y);
 
+bonus creer_bonus(float x, float y, float z, int type);
+void affiche_bonus(bonus bn);
 
 ennemi creer_ennemi(float x, float y, float z);
 void affiche_ennemi(ennemi e);

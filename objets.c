@@ -17,6 +17,35 @@ objet creer_objet(int x, int y){
   return o;
 }
 
+bonus creer_bonus(float x, float y, float z, int type){
+  bonus bn;
+  bn.p.x = x;
+  bn.p.y = y;
+  bn.p.z = z;
+  bn.type = type;
+  return bn;
+}
+  
+void affiche_bonus(bonus bn){
+  
+  glPushMatrix();
+  
+  glTranslatef(bn.p.x, bn.p.y, bn.p.z+5);
+  switch(bn.type){
+  case 0 : glColor3f(1, 1, 0); break;
+  case 1 : glColor3f(1, 0, 0); break;
+  
+  GLUquadric *myQuad;
+  GLint slices, stacks;
+  
+  myQuad=gluNewQuadric();
+  slices = stacks = 10;
+  gluSphere( myQuad , 10 , slices , stacks  );
+  
+  glPopMatrix();
+  
+}
+  
 ennemi creer_ennemi(float x, float y, float z){
   ennemi e;
   e.p.x = x;
