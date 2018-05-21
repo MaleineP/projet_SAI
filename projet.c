@@ -39,16 +39,6 @@ void affichage(){
   gluLookAt(eye.x, eye.y, eye.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
 
   afficher_grille(grille_de_jeu);
-  /*
-  // Plan de départ
-  glBegin(GL_QUADS);
-  glColor3f(1, 1, 1);
-  glVertex3f(-200,-100,0);
-  glVertex3f(-200,100,0);
-  glVertex3f(200,100,0);
-  glVertex3f(200,-100,0);
-  glEnd();
-  */
     
   glPushMatrix();
   glTranslatef(sHead.x, sHead.y, 0);
@@ -64,17 +54,18 @@ void affichage(){
 }
 
 void Animer(){
-  point tmp;
-  tmp.x = mvt.x;
-  tmp.y = mvt.y;
   mvt.x = 0; mvt.y =0;
   switch(angle){
   case 0 : mvt.x = -0.01; break;
-  case 90: case -270 : mvt.y = -0.01; break;
-  case 180: case -180 : mvt.x = 0.01; break;
-  case 270: case -90 : mvt.y = 0.01; break;
-  default : mvt.x = -0.01*(tmp.x*cos(angle)+tmp.y*(-sin(angle)));
-    mvt.y = -0.01*(tmp.x*sin(angle)+tmp.y*cos(angle));
+  case 45 : case -315 : mvt.x = -0.01*(sqrt(2)/2); mvt.y = -0.01*(sqrt(2)/2); break;
+  case 90 : case -270 : mvt.y = -0.01; break;
+  case 135 : case -225 : mvt.x = 0.01*(sqrt(2)/2); mvt.y = -0.01*(sqrt(2)/2); break;
+  case 180 : case -180 : mvt.x = 0.01; break;
+  case 225 : case -135 : mvt.x = 0.01*(sqrt(2)/2); mvt.y = 0.01*(sqrt(2)/2); break;
+  case 270 : case -90 : mvt.y = 0.01; break;
+  case 315 : case -45 : mvt.x = -0.01*(sqrt(2)/2); mvt.y = 0.01*(sqrt(2)/2); break;
+  default : mvt.x = -0.01*(mvt.x*cos(angle)+mvt.y*(-sin(angle)));
+    mvt.y = -0.01*(mvt.x*sin(angle)+mvt.y*cos(angle));
     break;
   }
   sHead.x += mvt.x;
@@ -85,10 +76,10 @@ void Animer(){
 void GererClavier(unsigned char touche, int x, int y){
 
   switch(touche){
-  case 'q' : angle += 10;
+  case 'q' : angle += 45;
     if(angle >=360) angle = 0;
     break;
-  case 'd' : angle += -10;
+  case 'd' : angle += -45;
     if(angle <= -360) angle = 0;
     break;
   }
