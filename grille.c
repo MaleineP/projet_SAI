@@ -1,10 +1,9 @@
 #include "grille.h"
 
-
 grille creer_grille(){
-  int i,j;
+  int i,j, rx, ry, ennemi = 1, bouboule = 1;
   srand(time(NULL));
-  grille jeu = malloc(sizeof(objet*) * LONGUEUR/30);
+  jeu = malloc(sizeof(objet*) * LONGUEUR/30);
   for(i=0; i < LONGUEUR/30; i++){
     jeu[i] = malloc(sizeof(objet) * LARGEUR/30);
   }
@@ -16,13 +15,14 @@ grille creer_grille(){
       
     }
   }
-  
+  ajouter_ennemis();
+  ajouter_bouboule();
 
   return jeu;
 }
 
 
-void afficher_grille(grille jeu){
+void afficher_grille(){
   int i, j;
   objet o;
   //bords de la map
@@ -68,8 +68,59 @@ void afficher_grille(grille jeu){
       case 1 : affiche_buisson(o.b); break;
       case 2 : affiche_maison(o.m); break;
       case 3 : affiche_arbre(o.a); break;
+      case 4 : affiche_ennemi(o.e); break;
+      case 5 : affiche_bonus(o.bn); break;
       }
 
     }
+  }
+}
+
+
+void ajouter_bouboule(){
+  int rx, ry, bouboule = 1, compteur = 0;
+  float fx, fy;
+  rx = rand()%30;
+  ry = rand()%30;
+  while(bouboule){
+    rx = rand()%30;
+    ry = rand()%30;
+    compteur++;
+    if(compteur == 30)
+      break;
+    if(jeu[rx][ry].type == 0){
+      fx = rand()%30 + rx*30;
+      fy = rand()%30 + ry*30;
+      jeu[rx][ry].bn = creer_bonus(fx, fy, 0, compteur%2);
+      jeu[rx][ry].type = 5;
+      bouboule = 0;
+    }
+    rx++; ry++;
+    rx%=30;
+    ry%=30;
+  }
+
+  
+}
+
+void ajouter_ennemis(){
+  int rx, ry, ennemi = 1, compteur = 0;
+  float fx, fy;
+  rx = rand()%LONGUEUR/30;
+  ry = rand()%LARGEUR/30;
+  while(ennemi){
+    compteur++;
+    if(compteur == 30)
+      break;
+    if(jeu[rx][ry].type == 0){
+      fx = rand()%30 + rx*30;
+      fy = rand()%30 + ry*30;
+      jeu[rx][ry].e = creer_ennemi(fx, fy, 0);
+      jeu[rx][ry].type = 4;
+      ennemi = 0;
+    }
+    rx++; ry++;
+    rx = rx%(LONGUEUR/30);
+    ry = ry%(LARGEUR/30);
   }
 }

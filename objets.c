@@ -41,7 +41,7 @@ void affiche_bonus(bonus bn){
   
   myQuad=gluNewQuadric();
   slices = stacks = 10;
-  gluSphere( myQuad , 10 , slices , stacks  );
+  gluSphere( myQuad , 2 , slices , stacks  );
   
   glPopMatrix();
   

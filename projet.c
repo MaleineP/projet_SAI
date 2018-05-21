@@ -1,6 +1,5 @@
 #include "grille.h"
 
-grille grille_de_jeu;
 int angle=0;
 float speedmod=1.0;
 point eye;
@@ -12,7 +11,7 @@ void GererClavier(unsigned char touche, int x, int y);
 void rotationSerpent(float x);
 
 int main(int argc, char* argv[]){
-  grille_de_jeu = creer_grille();
+  jeu = creer_grille();
   sHead.x = 50; sHead.y = 50; sHead.z = 1.8;
     
   glutInit(&argc, argv);
@@ -37,7 +36,7 @@ void affichage(){
   gluPerspective(75, 1, 0.5, 1000);
   gluLookAt(sHead.x-1*(cos(angle)), sHead.y-1*(sin(angle)), sHead.z, eye.x, eye.y, eye.z, 0, 0, 1);
 
-  afficher_grille(grille_de_jeu);
+  afficher_grille(jeu);
     
   glPushMatrix();
   glTranslatef(sHead.x, sHead.y, 0);
