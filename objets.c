@@ -30,7 +30,7 @@ void affiche_bonus(bonus bn){
   
   glPushMatrix();
   
-  glTranslatef(bn.p.x, bn.p.y, bn.p.z+3);
+  glTranslatef(bn.p.x, bn.p.y, bn.p.z+2);
   switch(bn.type){
   case 0 : glColor3f(1, 1, 0); break;
   case 1 : glColor3f(1, 0, 0); break;
