@@ -48,8 +48,8 @@ void affichage(){
   serpent(sHead.x, sHead.y, sHead.z+1.8);
   glPopMatrix();
     
-  glutIdleFunc(Animer);
   glutKeyboardFunc(GererClavier);
+  glutIdleFunc(Animer);
 
   glFlush();
 }
@@ -89,21 +89,25 @@ void Animer(){
 
 void GererClavier(unsigned char touche, int x, int y){
 
-  switch(touche){
-  case 'q' : angle += 45;
-    if(angle >=360) angle = 0;
-    break;
-  case 'd' : angle += -45;
-    if(angle <= -360) angle = 0;
-    break;
-  case 's' : vision.x = sHead.x+20*(cos(angle));
-  	vision.y = sHead.y+20*(sin(angle));
-  	vision.z = sHead.z+20;
-  	gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
-    break;
-  case 'z' :vision.x = sHead.x-3*(cos(angle));
-  	vision.y = sHead.y-3*(sin(angle));
-  	vision.z = sHead.z;
-    break;
-  }
+	switch(touche){
+		case 'q' : angle += 45;
+	    	if(angle >=360) angle = 0;
+	    break;
+		case 'd' : angle += -45;
+    		if(angle <= -360) angle = 0;
+    	break;
+  		case 's' : vision.x = sHead.x+20*(cos(angle));
+  			vision.y = sHead.y+20*(sin(angle));
+  			vision.z = sHead.z+20;
+  			//gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
+  			//glutPostRedisplay();
+    	break;
+  		case 'z' :vision.x = sHead.x-3*(cos(angle));
+  			vision.y = sHead.y-3*(sin(angle));
+  			vision.z = sHead.z;
+  			//gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
+  			//glutPostRedisplay();
+    	break;
+ 	}
+ 	glutPostRedisplay();
 }
