@@ -34,6 +34,7 @@ void affiche_bonus(bonus bn){
   switch(bn.type){
   case 0 : glColor3f(1, 1, 0); break;
   case 1 : glColor3f(1, 0, 0); break;
+  }
   
   GLUquadric *myQuad;
   GLint slices, stacks;
