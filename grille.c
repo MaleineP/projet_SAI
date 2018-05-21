@@ -25,7 +25,7 @@ void afficher_grille(grille jeu){
   int i, j;
   objet o;
   //bords de la map
-  glColor3f(0.4, 0.3, 0.2);
+  glColor3f(0.7, 0.7, 0.7);
 
   glBegin(GL_QUADS);
 
@@ -47,7 +47,7 @@ void afficher_grille(grille jeu){
   glVertex3f(0,LARGEUR,0);
   glVertex3f(0,LARGEUR,500);
   glVertex3f(LONGUEUR,LARGEUR,500);
-  glVertex3f(LONGUEUR,LARGEUR,500);
+  glVertex3f(LONGUEUR,LARGEUR,0);
 
   glColor3f(0.01, 0.5, 0.02);
 
