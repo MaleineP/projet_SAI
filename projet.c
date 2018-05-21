@@ -4,6 +4,7 @@ int interrupteur = 0;
 int angle=0;
 int vie=3;
 time_t score;
+int nb_e_tue = 0;
 float speedmod=1.0;
 point eye;
 point sHead;
@@ -118,6 +119,8 @@ void GererClavier(unsigned char touche, int x, int y){
     break;
   case 'z' :interrupteur = 0;
     break;
+  case 'x' : attaque_snake();
+    break;
   }
   glutPostRedisplay();
 }
@@ -167,7 +170,7 @@ int collision_snake(){
   case 4:
     if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy){
       vie--;
-      if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", score - time(NULL)); exit(0);}
+      if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", score - time(NULL)); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
       return 1;
     }
     else
@@ -186,5 +189,41 @@ int collision_snake(){
 }
 
 void attaque_snake(){
-  
+  int fx=0, fy=0, x, y;
+  switch(angle){
+  case 0 : fx=-50;
+    break;
+  case 45 : case -315 : fx = -1; fy = -1;
+    break;
+  case 90 : case -270 : fy = -1;
+    break;
+  case 135 : case -225 : fx = 1; fy = -1;
+    break;
+  case 180 : case -180 : fx = 1;
+    break;
+  case 225 : case -135 : fx = 1; fy = 1;
+    break;
+  case 270 : case -90 : fy = 1;
+    break;
+  case 315 : case -45 : fx = -1; fy = 1;
+    break;
+  default : break;
+  }
+  x = sHead.x/30; y = sHead.y/30;
+  if(jeu[x][y].type == 4){
+    jeu[x][y].type = 0;
+    nb_e_tue++;
+    ajouter_ennemis();
+    ajouter_ennemis();
+  }
+  else{
+    if(x+fx >=0 && x+fx < LONGUEUR/30 && y+fy >=0 && y+fy < LARGEUR/30){
+      if(jeu[x+fx][y+fy].type == 4){
+	jeu[x+fx][y+fy].type= 0;
+	ajouter_ennemis();
+	ajouter_ennemis();
+	nb_e_tue++;
+      }
+    }
+  }
 }
