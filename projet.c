@@ -119,35 +119,53 @@ void GererClavier(unsigned char touche, int x, int y){
 
 
 int collision_snake(){
-  int x, y; objet o;
+  int x, y; objet o; float fx, fy;
   if(sHead.x-1 <= 0 || sHead.x+1 >= LONGUEUR || sHead.y -1 <= 0 || sHead.y + 1 >= LARGEUR)
     return 1;
   x = sHead.x/30;
   y = sHead.y/30;
   o = jeu[x][y];
+  switch(angle){
+    case 0 : fx = sHead.x-0.01*speedmod; fy = sHead.y;
+      break;
+    case 45 : case -315 : fx = sHead.x -0.01*(sqrt(2)/2)*speedmod; fy = sHead.y-0.01*(sqrt(2)/2)*speedmod;
+      break;
+    case 90 : case -270 : fx = sHead.x; fy = sHead.y -0.01*speedmod;
+      break;
+    case 135 : case -225 : fx = sHead.x+0.01*(sqrt(2)/2)*speedmod; fy = sHead.y -0.01*(sqrt(2)/2)*speedmod;
+      break;
+    case 180 : case -180 : fx = sHead.x+0.01*speedmod; fy = sHead.y;
+      break;
+    case 225 : case -135 : fx = sHead.x+0.01*(sqrt(2)/2)*speedmod; fy = sHead.y+0.01*(sqrt(2)/2)*speedmod;
+      break;
+    case 270 : case -90 : fx = sHead.x; fy = sHead.y+0.01*speedmod;
+      break;
+    case 315 : case -45 : fx = sHead.x -0.01*(sqrt(2)/2)*speedmod; fy =sHead.y+ 0.01*(sqrt(2)/2)*speedmod;
+      break;
+  }
   switch(o.type){
   case 1:
-    if(o.b.p.x + o.b.radius >= sHead.x && o.b.p.x - o.b.radius <= sHead.x && o.b.p.y + o.b.radius >= sHead.y && o.b.p.y - o.b.radius <= sHead.y)
+    if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy)
       return 1;
     else
       return 0;
   case 2:
-    if(o.m.p.x <= sHead.x && o.m.p.x + o.m.longueur >= sHead.x && o.m.p.y <= sHead.y && o.m.p.y + o.m.largeur >= sHead.y)
+    if(o.m.p.x <= fx && o.m.p.x + o.m.longueur >= fx && o.m.p.y <= fy && o.m.p.y + o.m.largeur >= fy)
       return 1;
     else
       return 0;
   case 3:
-    if(o.a.p.x - o.a.t.rayon <= sHead.x && o.a.p.x + o.a.t.rayon >= sHead.x && o.a.p.y - o.a.t.rayon <= sHead.y && o.a.p.y + o.a.t.rayon >= sHead.y)
+    if(o.a.p.x - o.a.t.rayon <= fx && o.a.p.x + o.a.t.rayon >= fx && o.a.p.y - o.a.t.rayon <= fy && o.a.p.y + o.a.t.rayon >= fy)
       return 1;
     else
       return 0;
   case 4:
-    if(o.e.p.x - 3 <= sHead.x && o.e.p.x + 3 >= sHead.x && o.e.p.y -3 <= sHead.y && o.e.p.y + 3 >= sHead.y)
+    if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy)
       return 1;
     else
       return 0;
   case 5:
-    if(o.bn.p.x -2 <= sHead.x && o.bn.p.x + 2 >= sHead.x && o.bn.p.y -2 <= sHead.y && o.bn.p.y + 2 >= sHead.y)
+    if(o.bn.p.x -2 <= fx && o.bn.p.x + 2 >= fx && o.bn.p.y -2 <= fy && o.bn.p.y + 2 >= fy)
       switch(o.bn.type){
       case 0: speedmod++; break;
       case 1: break; // vie ++ (sauf si vie = 3)
