@@ -32,15 +32,9 @@ void affiche_bonus(bonus bn){
   
   glTranslatef(bn.p.x, bn.p.y, bn.p.z+5);
   switch(bn.type){
-<<<<<<< HEAD
   case 0 : glColor3f(1, 1, 0); break;
   case 1 : glColor3f(1, 0, 0); break;
   }
-=======
-  	case 0 : glColor3f(1, 1, 0); break;
-  	case 1 : glColor3f(1, 0, 0); break;
-	}
->>>>>>> 52668741457c758d6dca930897e56ee05a1e0db3
   
   GLUquadric *myQuad;
   GLint slices, stacks;
@@ -121,7 +115,7 @@ void affiche_buisson(buisson b){
   glPushMatrix();
   
   glTranslatef(b.p.x, b.p.y, b.p.z);
-  glColor3f(0.01, 0.5, 0.08);
+  glColor3f(0.3, 0.5, 0.08);
   
   GLUquadric *myQuad;
   GLint slices, stacks;
@@ -175,15 +169,15 @@ void affiche_maison(maison m){
   glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
 
   glColor3f(0.5, 0, 0);
-  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
-  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
-
   glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
   glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+
+  glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
+  glVertex3f(m.p.x+(m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
 
   glEnd();
  
@@ -191,11 +185,11 @@ void affiche_maison(maison m){
   
   glVertex3f(m.p.x, m.p.y, m.p.z+m.hauteur);
   glVertex3f(m.p.x+m.longueur, m.p.y, m.p.z+m.hauteur);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(m.longueur)/2, m.p.y, m.p.z+m.hauteur+5);
 
   glVertex3f(m.p.x, m.p.y+m.largeur, m.p.z+m.hauteur);
   glVertex3f(m.p.x+m.longueur, m.p.y+m.largeur, m.p.z+m.hauteur);
-  glVertex3f(m.p.x+(m.p.x+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
+  glVertex3f(m.p.x+(+m.longueur)/2, m.p.y+m.largeur, m.p.z+m.hauteur+5);
 
   glEnd();
 
@@ -243,6 +237,8 @@ void affiche_arbre(arbre a){
   
   gluCylinder(params, a.t.rayon, 0, a.t.hauteur, 20, 1);
 
+  glPopMatrix();
+  
   switch(a.type){
     
   case 0:
@@ -273,7 +269,6 @@ void affiche_arbre(arbre a){
     break;
   }
   
-  glPopMatrix();
   
 }
 
