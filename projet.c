@@ -2,6 +2,8 @@
 
 int interrupteur = 0;
 int angle=0;
+int vie=3;
+time_t score;
 float speedmod=1.0;
 point eye;
 point sHead;
@@ -12,8 +14,11 @@ void Animer();
 void GererClavier(unsigned char touche, int x, int y);
 void rotationSerpent(float x);
 int collision_snake();
+void attaque_snake();
+
 
 int main(int argc, char* argv[]){
+  score = time(NULL);
   creer_grille();
   sHead.x = 50; sHead.y = 50; sHead.z = 1.8;
     
@@ -160,19 +165,26 @@ int collision_snake(){
     else
       return 0;
   case 4:
-    if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy)
+    if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy){
+      vie--;
+      if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", score - time(NULL)); exit(0);}
       return 1;
+    }
     else
       return 0;
   case 5:
     if(o.bn.p.x -2 <= fx && o.bn.p.x + 2 >= fx && o.bn.p.y -2 <= fy && o.bn.p.y + 2 >= fy)
       switch(o.bn.type){
-      case 0: speedmod++; break;
-      case 1: break; // vie ++ (sauf si vie = 3)
+      case 0: speedmod*=2; break;
+      case 1: if(vie < 3) vie ++; break;
       }
     jeu[x][y].type = 0; ajouter_bouboule();
     return 0;
   default : return 0;
   }
 
+}
+
+void attaque_snake(){
+  
 }
