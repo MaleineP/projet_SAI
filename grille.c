@@ -49,7 +49,7 @@ void afficher_grille(grille jeu){
   glVertex3f(LONGUEUR,LARGEUR,500);
   glVertex3f(LONGUEUR,LARGEUR,0);
 
-  glColor3f(0.01, 0.5, 0.02);
+  glColor3f(0.3, 0.5, 0.2);
 
   glVertex3f(0,0,0);
   glVertex3f(0,LARGEUR,0);
