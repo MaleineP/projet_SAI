@@ -15,7 +15,6 @@ int main(int argc, char* argv[]){
   grille_de_jeu = creer_grille();
   sHead.x = 50; sHead.y = 50; sHead.z = 1.8;
     
-  srand(time(NULL));
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH);
 

@@ -3,6 +3,7 @@
 
 grille creer_grille(){
   int i,j;
+  srand(time(NULL));
   grille jeu = malloc(sizeof(objet*) * LONGUEUR/30);
   for(i=0; i < LONGUEUR/30; i++){
     jeu[i] = malloc(sizeof(objet) * LARGEUR/30);
