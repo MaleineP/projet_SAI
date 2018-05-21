@@ -1,5 +1,6 @@
 #include "grille.h"
 
+int interrupteur = 0;
 int angle=0;
 float speedmod=1.0;
 point eye;
@@ -35,9 +36,8 @@ void affichage(){
   glLoadIdentity();
   eye.z = sHead.z;
   gluPerspective(75, 1, 0.5, 1000);
-  vision.x = sHead.x-3*(cos(angle)); vision.y = sHead.y-3*(sin(angle)); vision.z = sHead.z;
+  vision.x = sHead.x-2*cos(angle); vision.y = sHead.y-2*cos(angle); vision.z = sHead.z;
   gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
-  //gluLookAt(sHead.x+20*cos(angle), sHead.y+20*cos(angle), 20, sHead.x, sHead.y, sHead.z, 0, 0, 1);
 
   afficher_grille(jeu);
     
@@ -82,6 +82,14 @@ void Animer(){
   break;
   default : break;
   }
+  if(interrupteur == 1) {
+  	vision.x = sHead.x+20*cos(angle); vision.y = sHead.y+20*cos(angle); vision.z = 20; 
+  	//gluLookAt(sHead.x+20*cos(angle), sHead.y+20*cos(angle), 20, sHead.x, sHead.y, sHead.z, 0, 0, 1);
+  }
+  if(interrupteur == 0){
+  	vision.x = sHead.x-3	*cos(angle); vision.y = sHead.y-3*cos(angle); vision.z = sHead.z; 
+  	gluLookAt(sHead.x-3*cos(angle), sHead.y-3*cos(angle), sHead.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
+  }
   sHead.x += mvt.x;
   sHead.y += mvt.y;
   glutPostRedisplay();
@@ -96,17 +104,9 @@ void GererClavier(unsigned char touche, int x, int y){
 		case 'd' : angle += -45;
     		if(angle <= -360) angle = 0;
     	break;
-  		case 's' : vision.x = sHead.x+20*(cos(angle));
-  			vision.y = sHead.y+20*(sin(angle));
-  			vision.z = sHead.z+20;
-  			//gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
-  			//glutPostRedisplay();
+  		case 's' : interrupteur = 1;
     	break;
-  		case 'z' :vision.x = sHead.x-3*(cos(angle));
-  			vision.y = sHead.y-3*(sin(angle));
-  			vision.z = sHead.z;
-  			//gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
-  			//glutPostRedisplay();
+  		case 'z' :interrupteur = 0;
     	break;
  	}
  	glutPostRedisplay();
