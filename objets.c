@@ -71,30 +71,30 @@ void affiche_ennemi(ennemi e){
   
   glBegin(GL_QUADS);
 
-  glVertex3f(e.p.x, e.p.y, e.p.z+7);
-  glVertex3f(e.p.x, e.p.y + 3, e.p.z+7);
-  glVertex3f(e.p.x, e.p.y + 5, e.p.z+17);
-  glVertex3f(e.p.x, e.p.y-2, e.p.z+17);
+  glVertex3f(e.p.x+1, e.p.y-1, e.p.z+7);
+  glVertex3f(e.p.x+1, e.p.y + 1, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+17);
+  glVertex3f(e.p.x+3, e.p.y-3, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y + 3, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y+5, e.p.z+17);
-  glVertex3f(e.p.x, e.p.y+5, e.p.z+17);
+  glVertex3f(e.p.x-1, e.p.y -1, e.p.z+7);
+  glVertex3f(e.p.x+1, e.p.y -1, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y-3, e.p.z+17);
+  glVertex3f(e.p.x-3, e.p.y-3, e.p.z+17);
   
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y + 5, e.p.z+17);
-  glVertex3f(e.p.x+3, e.p.y-2, e.p.z+17);
+  glVertex3f(e.p.x-1, e.p.y+1, e.p.z+7);
+  glVertex3f(e.p.x-1, e.p.y -1, e.p.z+7);
+  glVertex3f(e.p.x-3, e.p.y -3, e.p.z+17);
+  glVertex3f(e.p.x-3, e.p.y+3, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+7);
-  glVertex3f(e.p.x+3, e.p.y -2, e.p.z+17);
-  glVertex3f(e.p.x, e.p.y-2, e.p.z+17);
+  glVertex3f(e.p.x-1, e.p.y+1, e.p.z+7);
+  glVertex3f(e.p.x+1, e.p.y+1, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y +3, e.p.z+17);
+  glVertex3f(e.p.x-3, e.p.y+3, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y, e.p.z+17);
-  glVertex3f(e.p.x, e.p.y+3, e.p.z+17);
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+17);
-  glVertex3f(e.p.x+3, e.p.y+3, e.p.z+17);
+  glVertex3f(e.p.x+1, e.p.y-1, e.p.z+17);
+  glVertex3f(e.p.x+1, e.p.y+1, e.p.z+17);
+  glVertex3f(e.p.x-3, e.p.y+3, e.p.z+17);
+  glVertex3f(e.p.x-3, e.p.y-3, e.p.z+17);
 
 }
 
