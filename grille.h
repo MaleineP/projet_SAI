@@ -7,7 +7,7 @@ typedef objet** grille;
 
 grille jeu;
 
-grille creer_grille();
+void creer_grille();
 void afficher_grille();
 void ajouter_ennemis();
 void ajouter_bouboule();

@@ -1,6 +1,6 @@
 #include "grille.h"
 
-grille creer_grille(){
+void creer_grille(){
   int i,j, rx, ry, ennemi = 1, bouboule = 1;
   srand(time(NULL));
   jeu = malloc(sizeof(objet*) * LONGUEUR/30);
@@ -18,7 +18,6 @@ grille creer_grille(){
   ajouter_ennemis();
   ajouter_bouboule();
 
-  return jeu;
 }
 
 
@@ -80,19 +79,17 @@ void afficher_grille(){
 void ajouter_bouboule(){
   int rx, ry, bouboule = 1, compteur = 0;
   float fx, fy;
-  rx = rand()%30;
-  ry = rand()%30;
+  rx = rand()%LONGUEUR/30;
+  ry = rand()%LARGEUR/30;
   while(bouboule){
-    rx = rand()%30;
-    ry = rand()%30;
     compteur++;
     if(compteur == 30)
-      break;
+      bouboule = 0;
     if(jeu[rx][ry].type == 0){
+      jeu[rx][ry].type = 5;
       fx = rand()%30 + rx*30;
       fy = rand()%30 + ry*30;
       jeu[rx][ry].bn = creer_bonus(fx, fy, 0, compteur%2);
-      jeu[rx][ry].type = 5;
       bouboule = 0;
     }
     rx++; ry++;
@@ -111,12 +108,12 @@ void ajouter_ennemis(){
   while(ennemi){
     compteur++;
     if(compteur == 30)
-      break;
+      ennemi = 0;
     if(jeu[rx][ry].type == 0){
+      jeu[rx][ry].type = 4;
       fx = rand()%30 + rx*30;
       fy = rand()%30 + ry*30;
       jeu[rx][ry].e = creer_ennemi(fx, fy, 0);
-      jeu[rx][ry].type = 4;
       ennemi = 0;
     }
     rx++; ry++;

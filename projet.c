@@ -11,7 +11,7 @@ void GererClavier(unsigned char touche, int x, int y);
 void rotationSerpent(float x);
 
 int main(int argc, char* argv[]){
-  jeu = creer_grille();
+  creer_grille();
   sHead.x = 50; sHead.y = 50; sHead.z = 1.8;
     
   glutInit(&argc, argv);
