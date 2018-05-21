@@ -30,7 +30,7 @@ void affiche_bonus(bonus bn){
   
   glPushMatrix();
   
-  glTranslatef(bn.p.x, bn.p.y, bn.p.z+5);
+  glTranslatef(bn.p.x, bn.p.y, bn.p.z+3);
   switch(bn.type){
   case 0 : glColor3f(1, 1, 0); break;
   case 1 : glColor3f(1, 0, 0); break;
@@ -59,42 +59,42 @@ void affiche_ennemi(ennemi e){
 
   glPushMatrix();
   
-  glTranslatef(e.p.x, e.p.y, e.p.z);
+  glTranslatef(e.p.x, e.p.y, e.p.z+3);
   glColor3f(1, 0, 0);
   GLUquadric *myQuad;
   GLint slices, stacks;
   myQuad=gluNewQuadric();
   slices = stacks = 10;
-  gluSphere( myQuad , 10 , slices , stacks  );
+  gluSphere( myQuad , 3 , slices , stacks  );
   
   glPopMatrix();
   
   glBegin(GL_QUADS);
 
-  glVertex3f(e.p.x, e.p.y, e.p.z+4);
-  glVertex3f(e.p.x, e.p.y + 3, e.p.z+4);
-  glVertex3f(e.p.x, e.p.y + 5, e.p.z+14);
-  glVertex3f(e.p.x, e.p.y-2, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y, e.p.z+7);
+  glVertex3f(e.p.x, e.p.y + 3, e.p.z+7);
+  glVertex3f(e.p.x, e.p.y + 5, e.p.z+17);
+  glVertex3f(e.p.x, e.p.y-2, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y + 3, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y+5, e.p.z+14);
-  glVertex3f(e.p.x, e.p.y+5, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y + 3, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y+5, e.p.z+17);
+  glVertex3f(e.p.x, e.p.y+5, e.p.z+17);
   
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y + 5, e.p.z+14);
-  glVertex3f(e.p.x+3, e.p.y-2, e.p.z+14);
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y + 3, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y + 5, e.p.z+17);
+  glVertex3f(e.p.x+3, e.p.y-2, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+4);
-  glVertex3f(e.p.x+3, e.p.y -2, e.p.z+14);
-  glVertex3f(e.p.x, e.p.y-2, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+7);
+  glVertex3f(e.p.x+3, e.p.y -2, e.p.z+17);
+  glVertex3f(e.p.x, e.p.y-2, e.p.z+17);
   
-  glVertex3f(e.p.x, e.p.y, e.p.z+14);
-  glVertex3f(e.p.x, e.p.y+3, e.p.z+14);
-  glVertex3f(e.p.x+3, e.p.y, e.p.z+14);
-  glVertex3f(e.p.x+3, e.p.y+3, e.p.z+14);
+  glVertex3f(e.p.x, e.p.y, e.p.z+17);
+  glVertex3f(e.p.x, e.p.y+3, e.p.z+17);
+  glVertex3f(e.p.x+3, e.p.y, e.p.z+17);
+  glVertex3f(e.p.x+3, e.p.y+3, e.p.z+17);
 
 }
 
