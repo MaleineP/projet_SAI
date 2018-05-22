@@ -81,75 +81,34 @@ void Animer(){
   collision = collision_snake();
   if(collision == 0){
     switch(angle){
-    case 0 : mvt.x = -0.05*speedmod; mvt.y = 0;
-      if(interrupteur == 0) {
-        eye.x = sHead.x - 10; eye.y = sHead.y;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 0 : mvt.x = -0.02*speedmod; mvt.y = 0;
+      eye.x = sHead.x - 10; eye.y = sHead.y;
       break;
-/*    case 45 : case -315 : mvt.x = -0.01*(cos(PI/4))*speedmod; mvt.y = -0.01*(sin(PI/4))*speedmod;
-      if(interrupteur == 0) {
-        eye.x = sHead.x - 10; eye.y = sHead.y - 10;
-        }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 45 : case -315 : mvt.x = -0.02*(cos(angle*2*PI/360))*speedmod; mvt.y = -0.02*(sin(angle*2*PI/360))*speedmod;
+      eye.x = sHead.x - 10; eye.y = sHead.y - 10;
       break;
-*/    case 90 : case -270 : mvt.x = 0; mvt.y = -0.05*speedmod;
-      if(interrupteur == 0){
-        eye.x = sHead.x ; eye.y = sHead.y - 10;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 90 : case -270 : mvt.x = 0; mvt.y = -0.02*speedmod;
+      eye.x = sHead.x ; eye.y = sHead.y - 10;
       break;
-/*    case 135 : case -225 : mvt.x = -0.01*(cos(PI/4))*speedmod; mvt.y = -0.01*(sin(PI/4))*speedmod;
-      if(interrupteur == 0){
-        eye.x = sHead.x + 10; eye.y = sHead.y - 10;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 135 : case -225 : mvt.x = -0.02*(cos(angle*2*PI/360))*speedmod; mvt.y = -0.02*(sin(angle*2*PI/360))*speedmod;
+      eye.x = sHead.x + 10; eye.y = sHead.y - 10;
       break;
-*/    case 180 : case -180 : mvt.x = 0.05*speedmod; mvt.y = 0;
-      if(interrupteur == 0){
-        eye.x = sHead.x + 10; eye.y = sHead.y;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 180 : case -180 : mvt.x = 0.02*speedmod; mvt.y = 0;
+      eye.x = sHead.x + 10; eye.y = sHead.y;
       break;
-/*    case 225 : case -135 : mvt.x = -0.01*(cos(PI/4))*speedmod; mvt.y = -0.01*(sin(PI/4))*speedmod;
-      if(interrupteur == 0){
-        eye.x = sHead.x + 10; eye.y =  sHead.y + 10;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 225 : case -135 : mvt.x = -0.02*(cos(angle*2*PI/360))*speedmod; mvt.y = -0.02*(sin(angle*2*PI/360))*speedmod;
+      eye.x = sHead.x + 10; eye.y =  sHead.y + 10;
       break;
-*/    case 270 : case -90 : mvt.x = 0; mvt.y = 0.05*speedmod;
-      if(interrupteur == 0){
-        eye.x = sHead.x; eye.y = sHead.y + 10;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 270 : case -90 : mvt.x = 0; mvt.y = 0.02*speedmod;
+      eye.x = sHead.x; eye.y = sHead.y + 10;
       break;
-/*    case 315 : case -45 : mvt.x = -0.01*(cos(PI/4))*speedmod; mvt.y = -0.01*(sin(PI/4))*speedmod;
-      if(interrupteur == 0){
-        eye.x = sHead.x - 10; eye.y =  sHead.y + 10;
-      }
-      if(interrupteur == 1){
-        eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
-      }
+    case 315 : case -45 : mvt.x = -0.02*(cos(angle*2*PI/360))*speedmod; mvt.y = -0.02*(sin(angle*2*PI/360))*speedmod;
+      eye.x = sHead.x - 10; eye.y =  sHead.y + 10;
       break;
-*/    default : break;
+    default : break;
     }
     sHead.x += mvt.x;
     sHead.y += mvt.y;
-    //printf("angle : %d\n", angle);
     glutPostRedisplay();
   }
 }
@@ -157,10 +116,12 @@ void Animer(){
 void GererClavier(unsigned char touche, int x, int y){
 
   switch(touche){
-  case 'q' : angle += 90;
+  case 'q' : if(interrupteur == 1) angle += 90;
+    if(interrupteur == 0) angle += 45;
     if(angle >=360) angle = 0;
     break;
-  case 'd' : angle += -90;
+  case 'd' : if(interrupteur == 1) angle += -90;
+    if(interrupteur == 0) angle += -45;
     if(angle <= -360) angle = 0;
     break;
   case 's' : interrupteur = 1;
@@ -181,23 +142,23 @@ int collision_snake(){
   y = sHead.y/30;
   o = jeu[x][y];
   switch(angle){
-    case 0 : fx = sHead.x-0.05*speedmod; fy = sHead.y;
+    case 0 : fx = sHead.x-0.02*speedmod; fy = sHead.y;
       break;
-/*    case 45 : case -315 : fx = sHead.x -0.01*(cos(PI/4))*speedmod; fy = sHead.y-0.01*(sin(PI/4))*speedmod;
+    case 45 : case -315 : fx = sHead.x -0.02*(cos(PI/4))*speedmod; fy = sHead.y-0.02*(sin(PI/4))*speedmod;
       break;
-*/    case 90 : case -270 : fx = sHead.x; fy = sHead.y -0.05*speedmod;
+    case 90 : case -270 : fx = sHead.x; fy = sHead.y -0.02*speedmod;
       break;
-/*    case 135 : case -225 : fx = sHead.x+0.01*(cos(PI/4))*speedmod; fy = sHead.y -0.01*(sin(PI/4))*speedmod;
+    case 135 : case -225 : fx = sHead.x+0.02*(cos(PI/4))*speedmod; fy = sHead.y -0.02*(sin(PI/4))*speedmod;
       break;
-*/    case 180 : case -180 : fx = sHead.x+0.05*speedmod; fy = sHead.y;
+    case 180 : case -180 : fx = sHead.x+0.02*speedmod; fy = sHead.y;
       break;
-/*    case 225 : case -135 : fx = sHead.x+0.01*(cos(PI/4))*speedmod; fy = sHead.y+0.01*(sin(PI/4))*speedmod;
+    case 225 : case -135 : fx = sHead.x+0.02*(cos(PI/4))*speedmod; fy = sHead.y+0.02*(sin(PI/4))*speedmod;
       break;
-*/    case 270 : case -90 : fx = sHead.x; fy = sHead.y+0.05*speedmod;
+    case 270 : case -90 : fx = sHead.x; fy = sHead.y+0.02*speedmod;
       break;
-/*    case 315 : case -45 : fx = sHead.x -0.01*(cos(PI/4))*speedmod; fy =sHead.y+ 0.01*(sin(PI/4))*speedmod;
+    case 315 : case -45 : fx = sHead.x -0.02*(cos(PI/4))*speedmod; fy =sHead.y+ 0.02*(sin(PI/4))*speedmod;
       break;
-*/  }
+  }
   switch(o.type){
   case 1:
     if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy)
