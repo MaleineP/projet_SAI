@@ -17,6 +17,7 @@ void creer_grille(){
   }
   ajouter_ennemis();
   ajouter_bouboule();
+  ajouter_bouboule();
 
 }
 
@@ -67,7 +68,7 @@ void afficher_grille(){
       case 1 : affiche_buisson(o.b); break;
       case 2 : affiche_maison(o.m); break;
       case 3 : affiche_arbre(o.a); break;
-      case 4 : affiche_ennemi(o.e); deplacer_ennemi(o.e); break;
+      case 4 : affiche_ennemi(o.e);  jeu[i][j].e = deplacer_ennemi(o.e); break;
       case 5 : affiche_bonus(o.bn); break;
       }
 
@@ -77,115 +78,104 @@ void afficher_grille(){
 
 
 void ajouter_bouboule(){
-  int rx, ry, bouboule = 1, compteur = 0;
+  int rx, ry, bouboule = 1, compteur1 = 0, compteur2 = 0;
   float fx, fy;
-  rx = rand()%LONGUEUR/30;
-  ry = rand()%LARGEUR/30;
-  while(bouboule){
-    compteur++;
-    if(compteur == 30)
-      bouboule = 0;
-    if(jeu[rx][ry].type == 0){
-      jeu[rx][ry].type = 5;
-      fx = rand()%30 + rx*30;
-      fy = rand()%30 + ry*30;
-      jeu[rx][ry].bn = creer_bonus(fx, fy, 0, compteur%2);
-      bouboule = 0;
+  for(rx = rand()%(LONGUEUR/30); bouboule && compteur1 <=LONGUEUR/30; rx = (rx+1)%(LONGUEUR/30),compteur1++){
+    for(ry = rand()%(LARGEUR/30); bouboule && compteur2 <=LARGEUR/30;rx = (ry+1)%(LARGEUR/30),compteur2++){
+      if(jeu[rx][ry].type == 0){
+	jeu[rx][ry].type = 5;
+	fx = rand()%(LONGUEUR/30) + rx*30;
+	fy = rand()%(LARGEUR/30) + ry*30;
+	jeu[rx][ry].bn = creer_bonus(fx, fy, 0, rand()%2);
+	bouboule = 0;
+      }
     }
-    rx++; ry++;
-    rx%=30;
-    ry%=30;
   }
-
-  
 }
 
 void ajouter_ennemis(){
-  int rx, ry, ennemi = 1, compteur = 0;
+  int rx, ry, ennemi = 1, compteur1 = 0, compteur2 = 0;
   float fx, fy;
-  rx = rand()%LONGUEUR/30;
-  ry = rand()%LARGEUR/30;
-  while(ennemi){
-    compteur++;
-    if(compteur == 30)
-      ennemi = 0;
-    if(jeu[rx][ry].type == 0){
-      jeu[rx][ry].type = 4;
-      fx = rand()%30 + rx*30;
-      fy = rand()%30 + ry*30;
-      jeu[rx][ry].e = creer_ennemi(fx, fy, 0);
-      ennemi = 0;
+  for(rx = rand()%(LONGUEUR/30); ennemi && compteur1 <=30; rx = (rx+1)%(LONGUEUR/30),compteur1++){
+    for(ry = rand()%(LARGEUR/30); ennemi && compteur2 <=30;rx = (ry+1)%(LARGEUR/30),compteur2++){
+      if(jeu[rx][ry].type == 0){
+	jeu[rx][ry].type = 4;
+	fx = rand()%(LONGUEUR/30) + rx*30;
+	fy = rand()%(LARGEUR/30) + ry*30;
+	jeu[rx][ry].e = creer_ennemi(fx, fy, 0);
+	ennemi = 0;
+      }
     }
-    rx++; ry++;
-    rx = rx%(LONGUEUR/30);
-    ry = ry%(LARGEUR/30);
   }
+
 }
 
 
-void deplacer_ennemi(ennemi e){
-  int x, y, alea; objet o;
+ennemi deplacer_ennemi(ennemi e){
+  int x, y, fx, fy, alea; objet o;
   if(e.p.x-1 <= 0)
-    e.p.x+=0.1;
+    e.p.x+=0.5;
   if(e.p.x+1 >= LONGUEUR)
-    e.p.x-=0.1;
+    e.p.x-=0.5;
   if(e.p.y -1 <= 0)
-    e.p.y+=0.1;
+    e.p.y+=0.5;
   if(e.p.y + 1 >= LARGEUR)
-    e.p.y-=0.1;
+    e.p.y-=0.5;
   x = e.p.x/30;
   y = e.p.y/30;
   o = jeu[x][y];
   switch(o.type){
   case 1:
     if(o.b.p.x + o.b.radius >= e.p.x-1)
-      e.p.x+=0.1;
+      e.p.x+=0.5;
     if(o.b.p.x - o.b.radius <= e.p.x+1)
-      e.p.x-=0.1;
+      e.p.x-=0.5;
     if(o.b.p.y + o.b.radius >= e.p.y-1)
-      e.p.y+=0.1;
+      e.p.y+=0.5;
     if(o.b.p.y - o.b.radius <= e.p.y+1)
-      e.p.y-=0.1;
+      e.p.y-=0.5;
     break;
 
   case 2:
     if(o.m.p.x <= e.p.x-1)
-      e.p.x+=0.1;
+      e.p.x+=0.5;
     if(o.m.p.x + o.m.longueur >= e.p.x+1)
-      e.p.x-=0.1;
+      e.p.x-=0.5;
     if(o.m.p.y <= e.p.y-1)
-      e.p.y+=0.1;
+      e.p.y+=0.5;
     if(o.m.p.y + o.m.largeur >= e.p.y+1)
-      e.p.y-=0.1;
+      e.p.y-=0.5;
     break;
 
   case 3:
     if(o.a.p.x - o.a.t.rayon <= e.p.x-1)
-      e.p.x+=0.1;
+      e.p.x+=0.5;
     if(o.a.p.x + o.a.t.rayon >= e.p.x+1)
-      e.p.x-=0.1;
+      e.p.x-=0.5;
     if(o.a.p.y - o.a.t.rayon <= e.p.y-1)
-      e.p.y+=0.1;
+      e.p.y+=0.5;
     if(o.a.p.y + o.a.t.rayon >= e.p.y+1)
-      e.p.y-=0.1;
+      e.p.y-=0.5;
     break;
 
   default : alea = rand()%2;
     switch(alea){
-    case 0 : e.p.x+= 0.1; break;
-    case 1 : e.p.x-= 0.1; break;
+    case 0 : e.p.x+= 0.5; break;
+    case 1 : e.p.x-= 0.5; break;
     }
     alea = rand()%2;
     switch(alea){
-    case 0 : e.p.y+= 0.1; break;
-    case 1 : e.p.y-= 0.1; break;
+    case 0 : e.p.y+= 0.5; break;
+    case 1 : e.p.y-= 0.5; break;
     }
     break;
   }
-  if(e.p.x/30 != x || e.p.y/30 != y){
+  fx = e.p.x/30; fy = e.p.y/30;
+  if((fx != x || fy != y) && jeu[fx][fy].type == 0){
     jeu[x][y].type = 0;
     x =e.p.x/30; y = e.p.y/30;
     jeu[x][y].type = 4;
     jeu[x][y].e = e;
   }
+  return e;
 }

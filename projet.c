@@ -81,7 +81,7 @@ void Animer(){
   collision = collision_snake();
   if(collision == 0){
     switch(angle){
-    case 0 : mvt.x = -0.01*speedmod; mvt.y = 0;
+    case 0 : mvt.x = -0.05*speedmod; mvt.y = 0;
       if(interrupteur == 0) {
         eye.x = sHead.x - 10; eye.y = sHead.y;
       }
@@ -97,7 +97,7 @@ void Animer(){
         eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
       }
       break;
-*/    case 90 : case -270 : mvt.x = 0; mvt.y = -0.01*speedmod;
+*/    case 90 : case -270 : mvt.x = 0; mvt.y = -0.05*speedmod;
       if(interrupteur == 0){
         eye.x = sHead.x ; eye.y = sHead.y - 10;
       }
@@ -113,7 +113,7 @@ void Animer(){
         eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
       }
       break;
-*/    case 180 : case -180 : mvt.x = 0.01*speedmod; mvt.y = 0;
+*/    case 180 : case -180 : mvt.x = 0.05*speedmod; mvt.y = 0;
       if(interrupteur == 0){
         eye.x = sHead.x + 10; eye.y = sHead.y;
       }
@@ -129,7 +129,7 @@ void Animer(){
         eye.x = sHead.x - 10*(cos(PI/4)); eye.y = sHead.y - 10*(sin(PI/4));
       }
       break;
-*/    case 270 : case -90 : mvt.x = 0; mvt.y = 0.01*speedmod;
+*/    case 270 : case -90 : mvt.x = 0; mvt.y = 0.05*speedmod;
       if(interrupteur == 0){
         eye.x = sHead.x; eye.y = sHead.y + 10;
       }
@@ -149,7 +149,7 @@ void Animer(){
     }
     sHead.x += mvt.x;
     sHead.y += mvt.y;
-    printf("angle : %d\n", angle);
+    //printf("angle : %d\n", angle);
     glutPostRedisplay();
   }
 }
@@ -181,19 +181,19 @@ int collision_snake(){
   y = sHead.y/30;
   o = jeu[x][y];
   switch(angle){
-    case 0 : fx = sHead.x-0.01*speedmod; fy = sHead.y;
+    case 0 : fx = sHead.x-0.05*speedmod; fy = sHead.y;
       break;
 /*    case 45 : case -315 : fx = sHead.x -0.01*(cos(PI/4))*speedmod; fy = sHead.y-0.01*(sin(PI/4))*speedmod;
       break;
-*/    case 90 : case -270 : fx = sHead.x; fy = sHead.y -0.01*speedmod;
+*/    case 90 : case -270 : fx = sHead.x; fy = sHead.y -0.05*speedmod;
       break;
 /*    case 135 : case -225 : fx = sHead.x+0.01*(cos(PI/4))*speedmod; fy = sHead.y -0.01*(sin(PI/4))*speedmod;
       break;
-*/    case 180 : case -180 : fx = sHead.x+0.01*speedmod; fy = sHead.y;
+*/    case 180 : case -180 : fx = sHead.x+0.05*speedmod; fy = sHead.y;
       break;
 /*    case 225 : case -135 : fx = sHead.x+0.01*(cos(PI/4))*speedmod; fy = sHead.y+0.01*(sin(PI/4))*speedmod;
       break;
-*/    case 270 : case -90 : fx = sHead.x; fy = sHead.y+0.01*speedmod;
+*/    case 270 : case -90 : fx = sHead.x; fy = sHead.y+0.05*speedmod;
       break;
 /*    case 315 : case -45 : fx = sHead.x -0.01*(cos(PI/4))*speedmod; fy =sHead.y+ 0.01*(sin(PI/4))*speedmod;
       break;

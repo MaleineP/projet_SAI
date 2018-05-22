@@ -11,4 +11,4 @@ void creer_grille();
 void afficher_grille();
 void ajouter_ennemis();
 void ajouter_bouboule();
-void deplacer_ennemi(ennemi e);
+ennemi deplacer_ennemi(ennemi e);
