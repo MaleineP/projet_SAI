@@ -170,11 +170,5 @@ ennemi deplacer_ennemi(ennemi e){
     }
     break;
   }
-  fx = e.p.x/30; fy = e.p.y/30;
-  if((fx != x || fy != y) && jeu[fx][fy].type == 0){
-    jeu[x][y].type = 0;
-    jeu[fx][fy].type = 4;
-    jeu[fx][fy].e = e;
-  }
   return e;
 }
