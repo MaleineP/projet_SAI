@@ -50,13 +50,13 @@ void affichage(){
       vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+2*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
     }
     if(angle == 90 || angle == -270) {
-      vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(cos(angle*2*PI/360)); vision.z = sHead.z+20;
+      vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
     }
     if(angle == 180 || angle == -180) {
       vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+2*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
     }
     if(angle == 270 || angle == -90) {
-      vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(cos(angle*2*PI/360)); vision.z = sHead.z+20;
+      vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
     }
   }
   gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
@@ -109,8 +109,8 @@ void Animer(){
     }
     sHead.x += mvt.x;
     sHead.y += mvt.y;
-    glutPostRedisplay();
   }
+  glutPostRedisplay();
 }
 
 void GererClavier(unsigned char touche, int x, int y){
