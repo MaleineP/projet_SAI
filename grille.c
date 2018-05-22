@@ -112,63 +112,27 @@ void ajouter_ennemis(){
 
 
 ennemi deplacer_ennemi(ennemi e){
-  int x, y, fx, fy, alea; objet o;
-  if(e.p.x-1 <= 0)
-    e.p.x+=0.5;
-  if(e.p.x+1 >= LONGUEUR)
-    e.p.x-=0.5;
-  if(e.p.y -1 <= 0)
-    e.p.y+=0.5;
-  if(e.p.y + 1 >= LARGEUR)
-    e.p.y-=0.5;
-  x = e.p.x/30;
-  y = e.p.y/30;
-  o = jeu[x][y];
-  switch(o.type){
-  case 1:
-    if(o.b.p.x + o.b.radius > e.p.x-1)
-      e.p.x+=0.5;
-    if(o.b.p.x - o.b.radius < e.p.x+1)
-      e.p.x-=0.5;
-    if(o.b.p.y + o.b.radius > e.p.y-1)
-      e.p.y+=0.5;
-    if(o.b.p.y - o.b.radius < e.p.y+1)
-      e.p.y-=0.5;
-    break;
-
-  case 2:
-    if(o.m.p.x < e.p.x-1)
-      e.p.x+=0.5;
-    if(o.m.p.x + o.m.longueur > e.p.x+1)
-      e.p.x-=0.5;
-    if(o.m.p.y < e.p.y-1)
-      e.p.y+=0.5;
-    if(o.m.p.y + o.m.largeur > e.p.y+1)
-      e.p.y-=0.5;
-    break;
-
-  case 3:
-    if(o.a.p.x - o.a.t.rayon < e.p.x-1)
-      e.p.x+=0.5;
-    if(o.a.p.x + o.a.t.rayon > e.p.x+1)
-      e.p.x-=0.5;
-    if(o.a.p.y - o.a.t.rayon < e.p.y-1)
-      e.p.y+=0.5;
-    if(o.a.p.y + o.a.t.rayon > e.p.y+1)
-      e.p.y-=0.5;
-    break;
-
-  default : alea = rand()%2;
-    switch(alea){
-    case 0 : e.p.x+= 0.5; break;
-    case 1 : e.p.x-= 0.5; break;
-    }
-    alea = rand()%2;
-    switch(alea){
-    case 0 : e.p.y+= 0.5; break;
-    case 1 : e.p.y-= 0.5; break;
-    }
-    break;
+  int x, y, fx, fy, alea;
+  x = e.p.x/30; y= e.p.y/30;
+  fx = e.p.x - x*30; fy = e.p.y - y*30;
+  alea = rand()%2;
+  switch(alea){
+  case 0 : e.p.x +=0.5; break;
+  case 1 : e.p.x -= 0.5; break;
   }
+  alea = rand()%2;
+  switch(alea){
+  case 0 : e.p.y +=0.5; break;
+  case 1 : e.p.y -= 0.5; break;
+  }
+  if(fx <= 0)
+    e.p.x+=0.5;
+  if(fy <= 0)
+    e.p.y+=0.5;
+  if(fx >= 30)
+    e.p.x-=0.5;
+  if(fy >= 30)
+    e.p.y-=0.5;
+  
   return e;
 }
