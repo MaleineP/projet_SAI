@@ -8,8 +8,8 @@ void creer_grille(){
     jeu[i] = malloc(sizeof(objet) * LARGEUR/30);
   }
 
-  for(i=0; i < LONGUEUR/30; i++){
-    for(j=0; j < LARGEUR/30; j++){
+  for(i=2; i < LONGUEUR/30; i++){
+    for(j=2; j < LARGEUR/30; j++){
       
       jeu[i][j] = creer_objet(i, j);
       
