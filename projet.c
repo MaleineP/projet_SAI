@@ -201,7 +201,7 @@ int collision_snake(){
 void attaque_snake(){
   int fx=0, fy=0, x, y;
   switch(angle){
-  case 0 : fx=-50;
+  case 0 : fx=-1;
     break;
   case 45 : case -315 : fx = -1; fy = -1;
     break;
