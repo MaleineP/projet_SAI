@@ -8,6 +8,8 @@ objet creer_objet(int x, int y){
   fx = rand()%30 + x*30;
   fy = rand()%30 + y*30;
   alea = rand()%10;
+  if(x == 1 && y == 1)
+    alea = 0;
   switch(alea){
   case 1 : o.type = 1; o.b = buisson_crea(fx, fy, 0); break;
   case 2 : o.type = 2; o.m = maison_crea(fx, fy, 0); break;

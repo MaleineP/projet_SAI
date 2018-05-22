@@ -10,7 +10,7 @@ void creer_grille(){
 
   for(i=0; i < LONGUEUR/30; i++){
     for(j=0; j < LARGEUR/30; j++){
-
+      
       jeu[i][j] = creer_objet(i, j);
       
     }

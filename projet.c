@@ -166,7 +166,7 @@ int collision_snake(){
   case 4:
     if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy){
       vie--;
-      if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", score - time(NULL)); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+      if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
       return 1;
     }
     else
@@ -206,19 +206,21 @@ void attaque_snake(){
   default : break;
   }
   x = sHead.x/30; y = sHead.y/30;
-  if(jeu[x][y].type == 4){
-    jeu[x][y].type = 0;
-    nb_e_tue++;
-    ajouter_ennemis();
-    ajouter_ennemis();
-  }
-  else{
-    if(x+fx >=0 && x+fx < LONGUEUR/30 && y+fy >=0 && y+fy < LARGEUR/30){
-      if(jeu[x+fx][y+fy].type == 4){
-	jeu[x+fx][y+fy].type= 0;
-	ajouter_ennemis();
-	ajouter_ennemis();
-	nb_e_tue++;
+  if(x >=0 && x < LONGUEUR/30 && y >=0 && y < LARGEUR/30){
+    if(jeu[x][y].type == 4){
+      jeu[x][y].type = 0;
+      nb_e_tue++;
+      ajouter_ennemis();
+      ajouter_ennemis();
+    }
+    else{
+      if(x+fx >=0 && x+fx < LONGUEUR/30 && y+fy >=0 && y+fy < LARGEUR/30){
+	if(jeu[x+fx][y+fy].type == 4){
+	  jeu[x+fx][y+fy].type= 0;
+	  ajouter_ennemis();
+	  ajouter_ennemis();
+	  nb_e_tue++;
+	}
       }
     }
   }
