@@ -68,7 +68,7 @@ void afficher_grille(){
       case 1 : affiche_buisson(o.b); break;
       case 2 : affiche_maison(o.m); break;
       case 3 : affiche_arbre(o.a); break;
-      case 4 : affiche_ennemi(o.e);  jeu[i][j].e = deplacer_ennemi(o.e); break;
+      case 4 : affiche_ennemi(o.e);  jeu[i][j].e = deplacer_ennemi(o.e, i, j); break;
       case 5 : affiche_bonus(o.bn); break;
       }
 
@@ -111,9 +111,8 @@ void ajouter_ennemis(){
 }
 
 
-ennemi deplacer_ennemi(ennemi e){
-  int x, y, fx, fy, alea;
-  x = e.p.x/30; y= e.p.y/30;
+ennemi deplacer_ennemi(ennemi e, int x, int y){
+  int fx, fy, alea;
   fx = e.p.x - x*30; fy = e.p.y - y*30;
   alea = rand()%2;
   switch(alea){
