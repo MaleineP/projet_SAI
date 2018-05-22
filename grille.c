@@ -81,7 +81,7 @@ void ajouter_bouboule(){
   int rx, ry, bouboule = 1;
   float fx, fy;
   for(rx = rand()%(LONGUEUR/30); bouboule; rx = (rx+1)%(LONGUEUR/30)){
-    for(ry = rand()%(LARGEUR/30); bouboule;rx = (ry+1)%(LARGEUR/30)){
+    for(ry = rand()%(LARGEUR/30); bouboule;ry = (ry+1)%(LARGEUR/30)){
       if(jeu[rx][ry].type == 0){
 	jeu[rx][ry].type = 5;
 	fx = rand()%(LONGUEUR/30) + rx*30;
@@ -97,7 +97,7 @@ void ajouter_ennemis(){
   int rx, ry, ennemi = 1;
   float fx, fy;
   for(rx = rand()%(LONGUEUR/30); ennemi; rx = (rx+1)%(LONGUEUR/30)){
-    for(ry = rand()%(LARGEUR/30); ennemi;rx = (ry+1)%(LARGEUR/30)){
+    for(ry = rand()%(LARGEUR/30); ennemi;ry = (ry+1)%(LARGEUR/30)){
       if(jeu[rx][ry].type == 0 && (rx != 1 && ry != 1)){
 	jeu[rx][ry].type = 4;
 	fx = rand()%(LONGUEUR/30) + rx*30;
