@@ -43,7 +43,12 @@ void affichage(){
   glLoadIdentity();
   eye.z = sHead.z;
   gluPerspective(75, 1, 0.5, 1000);
-  vision.x = sHead.x-2*cos(angle); vision.y = sHead.y-2*cos(angle); vision.z = sHead.z;
+  if(interrupteur == 0 ) {
+    vision.x = sHead.x-3*cos(angle); vision.y = sHead.y-3*cos(angle); vision.z = sHead.z;
+  }
+  if(interrupteur == 1 ) {
+    vision.x = sHead.x+20*cos(angle); vision.y = sHead.y+20*cos(angle); vision.z = sHead.z+20;
+  }
   gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
 
   afficher_grille(jeu);
@@ -67,38 +72,30 @@ void Animer(){
   if(collision == 0){
     switch(angle){
     case 0 : mvt.x = -0.01*speedmod; mvt.y = 0;
-      eye.x = sHead.x - 20; eye.y = sHead.y;
+      eye.x = sHead.x - 10; eye.y = sHead.y;
       break;
     case 45 : case -315 : mvt.x = -0.01*(sqrt(2)/2)*speedmod; mvt.y = -0.01*(sqrt(2)/2)*speedmod;
-      eye.x = sHead.x - 20; eye.y = sHead.y - 20;
+      eye.x = sHead.x - 10; eye.y = sHead.y - 10;
       break;
     case 90 : case -270 : mvt.x = 0; mvt.y = -0.01*speedmod;
-      eye.x = sHead.x ; eye.y = sHead.y - 20;
+      eye.x = sHead.x ; eye.y = sHead.y - 10;
       break;
     case 135 : case -225 : mvt.x = 0.01*(sqrt(2)/2)*speedmod; mvt.y = -0.01*(sqrt(2)/2)*speedmod;
-      eye.x = sHead.x + 20; eye.y = sHead.y - 20;
+      eye.x = sHead.x + 10; eye.y = sHead.y - 10;
       break;
     case 180 : case -180 : mvt.x = 0.01*speedmod; mvt.y = 0;
-      eye.x = sHead.x + 20; eye.y = sHead.y;
+      eye.x = sHead.x + 10; eye.y = sHead.y;
       break;
     case 225 : case -135 : mvt.x = 0.01*(sqrt(2)/2)*speedmod; mvt.y = 0.01*(sqrt(2)/2)*speedmod;
-      eye.x = sHead.x + 20; eye.y =  sHead.y + 20;
+      eye.x = sHead.x + 10; eye.y =  sHead.y + 10;
       break;
     case 270 : case -90 : mvt.x = 0; mvt.y = 0.01*speedmod;
-      eye.x = sHead.x; eye.y = sHead.y + 20;
+      eye.x = sHead.x; eye.y = sHead.y + 10;
       break;
     case 315 : case -45 : mvt.x = -0.01*(sqrt(2)/2)*speedmod; mvt.y = 0.01*(sqrt(2)/2)*speedmod;
-      eye.x = sHead.x - 20; eye.y =  sHead.y + 20;
+      eye.x = sHead.x - 10; eye.y =  sHead.y + 10;
       break;
     default : break;
-    }
-    if(interrupteur == 1) {
-      vision.x = sHead.x+20*cos(angle); vision.y = sHead.y+20*cos(angle); vision.z = 20; 
-      //gluLookAt(sHead.x+20*cos(angle), sHead.y+20*cos(angle), 20, sHead.x, sHead.y, sHead.z, 0, 0, 1);
-    }
-    if(interrupteur == 0){
-      vision.x = sHead.x-3	*cos(angle); vision.y = sHead.y-3*cos(angle); vision.z = sHead.z; 
-      gluLookAt(sHead.x-3*cos(angle), sHead.y-3*cos(angle), sHead.z, sHead.x, sHead.y, sHead.z, 0, 0, 1);
     }
     sHead.x += mvt.x;
     sHead.y += mvt.y;
@@ -122,7 +119,6 @@ void GererClavier(unsigned char touche, int x, int y){
   case 'x' : attaque_snake();
     break;
   }
-  glutPostRedisplay();
 }
 
 
