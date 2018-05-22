@@ -1,7 +1,7 @@
 #include "objets.h"
 
-#define LONGUEUR 400
-#define LARGEUR 200
+#define LONGUEUR 600
+#define LARGEUR 300
 
 typedef objet** grille;
 

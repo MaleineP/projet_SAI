@@ -78,10 +78,10 @@ void afficher_grille(){
 
 
 void ajouter_bouboule(){
-  int rx, ry, bouboule = 1, compteur1 = 0, compteur2 = 0;
+  int rx, ry, bouboule = 1;
   float fx, fy;
-  for(rx = rand()%(LONGUEUR/30); bouboule && compteur1 <=LONGUEUR/30; rx = (rx+1)%(LONGUEUR/30),compteur1++){
-    for(ry = rand()%(LARGEUR/30); bouboule && compteur2 <=LARGEUR/30;rx = (ry+1)%(LARGEUR/30),compteur2++){
+  for(rx = rand()%(LONGUEUR/30); bouboule; rx = (rx+1)%(LONGUEUR/30)){
+    for(ry = rand()%(LARGEUR/30); bouboule;rx = (ry+1)%(LARGEUR/30)){
       if(jeu[rx][ry].type == 0){
 	jeu[rx][ry].type = 5;
 	fx = rand()%(LONGUEUR/30) + rx*30;
@@ -94,11 +94,11 @@ void ajouter_bouboule(){
 }
 
 void ajouter_ennemis(){
-  int rx, ry, ennemi = 1, compteur1 = 0, compteur2 = 0;
+  int rx, ry, ennemi = 1;
   float fx, fy;
-  for(rx = rand()%(LONGUEUR/30); ennemi && compteur1 <=30; rx = (rx+1)%(LONGUEUR/30),compteur1++){
-    for(ry = rand()%(LARGEUR/30); ennemi && compteur2 <=30;rx = (ry+1)%(LARGEUR/30),compteur2++){
-      if(jeu[rx][ry].type == 0){
+  for(rx = rand()%(LONGUEUR/30); ennemi; rx = (rx+1)%(LONGUEUR/30)){
+    for(ry = rand()%(LARGEUR/30); ennemi;rx = (ry+1)%(LARGEUR/30)){
+      if(jeu[rx][ry].type == 0 && (rx != 1 && ry != 1)){
 	jeu[rx][ry].type = 4;
 	fx = rand()%(LONGUEUR/30) + rx*30;
 	fy = rand()%(LARGEUR/30) + ry*30;
@@ -126,35 +126,35 @@ ennemi deplacer_ennemi(ennemi e){
   o = jeu[x][y];
   switch(o.type){
   case 1:
-    if(o.b.p.x + o.b.radius >= e.p.x-1)
+    if(o.b.p.x + o.b.radius > e.p.x-1)
       e.p.x+=0.5;
-    if(o.b.p.x - o.b.radius <= e.p.x+1)
+    if(o.b.p.x - o.b.radius < e.p.x+1)
       e.p.x-=0.5;
-    if(o.b.p.y + o.b.radius >= e.p.y-1)
+    if(o.b.p.y + o.b.radius > e.p.y-1)
       e.p.y+=0.5;
-    if(o.b.p.y - o.b.radius <= e.p.y+1)
+    if(o.b.p.y - o.b.radius < e.p.y+1)
       e.p.y-=0.5;
     break;
 
   case 2:
-    if(o.m.p.x <= e.p.x-1)
+    if(o.m.p.x < e.p.x-1)
       e.p.x+=0.5;
-    if(o.m.p.x + o.m.longueur >= e.p.x+1)
+    if(o.m.p.x + o.m.longueur > e.p.x+1)
       e.p.x-=0.5;
-    if(o.m.p.y <= e.p.y-1)
+    if(o.m.p.y < e.p.y-1)
       e.p.y+=0.5;
-    if(o.m.p.y + o.m.largeur >= e.p.y+1)
+    if(o.m.p.y + o.m.largeur > e.p.y+1)
       e.p.y-=0.5;
     break;
 
   case 3:
-    if(o.a.p.x - o.a.t.rayon <= e.p.x-1)
+    if(o.a.p.x - o.a.t.rayon < e.p.x-1)
       e.p.x+=0.5;
-    if(o.a.p.x + o.a.t.rayon >= e.p.x+1)
+    if(o.a.p.x + o.a.t.rayon > e.p.x+1)
       e.p.x-=0.5;
-    if(o.a.p.y - o.a.t.rayon <= e.p.y-1)
+    if(o.a.p.y - o.a.t.rayon < e.p.y-1)
       e.p.y+=0.5;
-    if(o.a.p.y + o.a.t.rayon >= e.p.y+1)
+    if(o.a.p.y + o.a.t.rayon > e.p.y+1)
       e.p.y-=0.5;
     break;
 
@@ -173,9 +173,8 @@ ennemi deplacer_ennemi(ennemi e){
   fx = e.p.x/30; fy = e.p.y/30;
   if((fx != x || fy != y) && jeu[fx][fy].type == 0){
     jeu[x][y].type = 0;
-    x =e.p.x/30; y = e.p.y/30;
-    jeu[x][y].type = 4;
-    jeu[x][y].e = e;
+    jeu[fx][fy].type = 4;
+    jeu[fx][fy].e = e;
   }
   return e;
 }

@@ -136,8 +136,6 @@ void GererClavier(unsigned char touche, int x, int y){
 
 int collision_snake(){
   int x, y; objet o; float fx, fy;
-  if(sHead.x-1 <= 0 || sHead.x+1 >= LONGUEUR || sHead.y -1 <= 0 || sHead.y + 1 >= LARGEUR)
-    return 1;
   x = sHead.x/30;
   y = sHead.y/30;
   o = jeu[x][y];
@@ -191,8 +189,12 @@ int collision_snake(){
       }
     jeu[x][y].type = 0; ajouter_bouboule();
     return 0;
-  default : return 0;
-  }
+  default :
+    if(fx <= 0 || fx >= LONGUEUR || fy <= 0 || fy >= LARGEUR)
+      return 1;
+    else
+      return 0;
+  } 
 
 }
 
@@ -201,21 +203,21 @@ void attaque_snake(){
   switch(angle){
   case 0 : fx=-50;
     break;
-/*  case 45 : case -315 : fx = -1; fy = -1;
+  case 45 : case -315 : fx = -1; fy = -1;
     break;
-*/  case 90 : case -270 : fy = -1;
+  case 90 : case -270 : fy = -1;
     break;
-/*  case 135 : case -225 : fx = 1; fy = -1;
+  case 135 : case -225 : fx = 1; fy = -1;
     break;
-*/  case 180 : case -180 : fx = 1;
+  case 180 : case -180 : fx = 1;
     break;
-/*  case 225 : case -135 : fx = 1; fy = 1;
+  case 225 : case -135 : fx = 1; fy = 1;
     break;
-*/  case 270 : case -90 : fy = 1;
+  case 270 : case -90 : fy = 1;
     break;
-/*  case 315 : case -45 : fx = -1; fy = 1;
+  case 315 : case -45 : fx = -1; fy = 1;
     break;
-*/  default : break;
+  default : break;
   }
   x = sHead.x/30; y = sHead.y/30;
   if(x >=0 && x < LONGUEUR/30 && y >=0 && y < LARGEUR/30){
