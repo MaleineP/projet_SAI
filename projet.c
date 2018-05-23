@@ -112,9 +112,6 @@ void affichage(){
     glutKeyboardFunc(GererClavier);
     glutIdleFunc(Animer);
 
-//    printf("%f\n", speedmod);
-    printf("%d\n", vie);
-
     glFlush();
 }
 
