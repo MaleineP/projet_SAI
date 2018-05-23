@@ -201,8 +201,11 @@ int collision_snake(){
         }
         return 0;
     default :
-        if(fx <= 0 || fx >= LONGUEUR || fy <= 0 || fy >= LARGEUR)
+        if(fx <= 0 || fx >= LONGUEUR || fy <= 0 || fy >= LARGEUR){
+	vie--;
+	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
+	}
         else
             return 0;
     } 
