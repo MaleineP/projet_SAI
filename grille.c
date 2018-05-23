@@ -84,8 +84,8 @@ void ajouter_bouboule(){
     for(ry = rand()%(LARGEUR/30); bouboule; ry = (ry+1)%(LARGEUR/30)){
       if(jeu[rx][ry].type == 0 && rx != 0 && rx != LONGUEUR/30 && ry != 0 && ry != LARGEUR/30){
 	jeu[rx][ry].type = 5;
-	fx = rand()%((LONGUEUR/30)-1) + rx*30;
-	fy = rand()%((LARGEUR/30)-1) + ry*30;
+	fx = rand()%(LONGUEUR/30) + rx*30;
+	fy = rand()%(LARGEUR/30) + ry*30;
 	jeu[rx][ry].bn = creer_bonus(fx, fy, 0, rand()%2);
 	bouboule = 0;
       }
