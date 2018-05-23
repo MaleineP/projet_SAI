@@ -98,7 +98,6 @@ void ajouter_ennemis(){
   float fx, fy;
   for(rx = rand()%(LONGUEUR/30); ennemi != 0; rx = (rx+1)%(LONGUEUR/30)){
     for(compteur = 0, ry = rand()%(LARGEUR/30); ennemi != 0 && compteur < LARGEUR/30;ry = (ry+1)%(LARGEUR/30), compteur++){
-      printf("x = %d, y = %d\n", rx, ry);
       if(jeu[rx][ry].type == 0 && (rx != 1 && ry != 1)){
 	jeu[rx][ry].type = 4;
 	fx = rand()%(LONGUEUR/30) + rx*30;
