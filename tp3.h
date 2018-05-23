@@ -1,6 +1,6 @@
 #include "tp1.h"
 
-#define PI 3.14
+#define PI 3.14159265359
 
 typedef struct{
     float x;

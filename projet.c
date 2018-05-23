@@ -2,7 +2,7 @@
 
 int interrupteur = 0;
 int angle=0;
-int vie=3;
+int vie=3000;
 time_t score;
 int nb_e_tue = 0;
 float speedmod;
@@ -73,6 +73,9 @@ void affichage(){
     
     glutKeyboardFunc(GererClavier);
     glutIdleFunc(Animer);
+
+//    printf("%f\n", speedmod);
+    printf("%d\n", vie);
 
     glFlush();
 }
@@ -161,7 +164,7 @@ int collision_snake(){
     switch(o.type){
     case 1:
       if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy){
-	vie--;
+	vie-=500;
 	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
 	return 1;
       }
@@ -169,7 +172,7 @@ int collision_snake(){
             return 0;
     case 2:
         if(o.m.p.x <= fx && o.m.p.x + o.m.longueur >= fx && o.m.p.y <= fy && o.m.p.y + o.m.largeur >= fy){
-	vie--;
+	vie-=500;
 	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}
@@ -177,7 +180,7 @@ int collision_snake(){
             return 0;
     case 3:
         if(o.a.p.x - o.a.t.rayon <= fx && o.a.p.x + o.a.t.rayon >= fx && o.a.p.y - o.a.t.rayon <= fy && o.a.p.y + o.a.t.rayon >= fy){
-	vie--;
+	vie-=500;
 	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}
@@ -185,7 +188,7 @@ int collision_snake(){
             return 0;
     case 4:
         if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy){
-            vie--;
+            vie-=500;
             if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
         }
@@ -195,14 +198,14 @@ int collision_snake(){
         if(o.bn.p.x -2 <= fx && o.bn.p.x + 2 >= fx && o.bn.p.y -2 <= fy && o.bn.p.y + 2 >= fy){
             switch(o.bn.type){
             case 0: speedmod*=1.2; break;
-            case 1: speedmod*=1.2; if(vie < 3) vie ++; break;
+            case 1: speedmod*=1.2; if(vie < 3) vie+=250; break;
             }
             jeu[x][y].type = 0; ajouter_bouboule();
         }
         return 0;
     default :
         if(fx <= 0 || fx >= LONGUEUR || fy <= 0 || fy >= LARGEUR){
-	vie--;
+	vie-=500;
 	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}
