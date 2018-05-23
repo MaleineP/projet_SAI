@@ -80,9 +80,9 @@ void afficher_grille(){
 void ajouter_bouboule(){
   int rx, ry, bouboule = 1;
   float fx, fy;
-  for(rx = rand()%((LONGUEUR/30)-2)+1; bouboule; rx = (rx+1)%((LONGUEUR/30)-1)){
-    for(ry = rand()%((LARGEUR/30)-2)+1; bouboule; ry = (ry+1)%((LARGEUR/30)-1)){
-      if(jeu[rx][ry].type == 0){
+  for(rx = rand()%(LONGUEUR/30); bouboule; rx = (rx+1)%(LONGUEUR/30)){
+    for(ry = rand()%(LARGEUR/30); bouboule; ry = (ry+1)%(LARGEUR/30)){
+      if(jeu[rx][ry].type == 0 && (rx != 0 || rx != LONGUEUR/30) && (ry != 0 || ry != LARGEUR/30)){
 	jeu[rx][ry].type = 5;
 	fx = rand()%((LONGUEUR/30)-1) + rx*30;
 	fy = rand()%((LARGEUR/30)-1) + ry*30;
