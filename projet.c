@@ -49,37 +49,31 @@ void affichage(){
         if(angle == 0) {
             vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+2*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
         }
+        if(angle == 45 || angle == -315) {
+            vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
+        }
         if(angle == 90 || angle == -270) {
             vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
+        }
+        if(angle == 135 || angle == -225) {
+            vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
         }
         if(angle == 180 || angle == -180) {
             vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+2*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
         }
+        if(angle == 225 || angle == -135) {
+            vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
+        }
         if(angle == 270 || angle == -90) {
             vision.x = sHead.x+2*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
+        }
+        if(angle == 315 || angle == -45) {
+            vision.x = sHead.x+20*(cos(angle*2*PI/360)); vision.y = sHead.y+20*(sin(angle*2*PI/360)); vision.z = sHead.z+20;
         }
     }
     gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
 
     // Affichage du score 
-    if(interrupteur == 0){
-      GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
-      int scorevar = time(NULL)-score;
-      int j=0;
-      while(scorevar > 9){
-        int l = scorevar%10;
-        glutBitmapCharacter(font_style, 48+l);
-        j++;
-        scorevar /= 10;
-      }
-      switch(angle){
-          case 0 : glRasterPos3f(sHead.x -5*1.5*cos(angle*2*PI/360), sHead.y+2, sHead.z+1);
-          case 90 : case -270 : glRasterPos3f(sHead.x+2,sHead.y-5*1.5*sin(angle*2*PI/360),sHead.z+1);
-          case 180 : case -180 : glRasterPos3f(sHead.x-5*1.5*cos(angle*2*PI/360),sHead.y+2,sHead.z+1);
-          case 270 : case -90 : glRasterPos3f(sHead.x+2,sHead.y+j-5*1.5*cos(angle*2*PI/360),sHead.z+1);
-      }
-      glutBitmapCharacter(font_style, 48+scorevar);  
-    }
     if(interrupteur == 1){
       GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
       int scorevar = time(NULL)-score;
@@ -92,9 +86,13 @@ void affichage(){
       }
       switch(angle){
           case 0 : glRasterPos3f(sHead.x+j,sHead.y+2,sHead.z+1.7);
+          case 45 : case -315 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
           case 90 : case -270 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
+          case 135 : case -225 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
           case 180 : case -180 : glRasterPos3f(sHead.x+2,sHead.y+j,sHead.z+1.7);
+          case 225 : case -135 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
           case 270 : case -90 : glRasterPos3f(sHead.x+2,sHead.y+j*1.5,sHead.z+1.7);
+          case 315 : case -45 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
       }
       glutBitmapCharacter(font_style, 48+scorevar);
     }
@@ -155,12 +153,10 @@ void Animer(){
 void GererClavier(unsigned char touche, int x, int y){
 
     switch(touche){
-    case 'q' : if(interrupteur == 1) angle += 90;
-        if(interrupteur == 0) angle += 45;
+    case 'q' : angle += 45;
         if(angle >=360) angle = 0;
         break;
-    case 'd' : if(interrupteur == 1) angle += -90;
-        if(interrupteur == 0) angle += -45;
+    case 'd' : angle += -45;
         if(angle <= -360) angle = 0;
         break;
     case 's' : interrupteur = 1;

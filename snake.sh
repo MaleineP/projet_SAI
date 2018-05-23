@@ -11,4 +11,5 @@ echo -e "\n\t  X pour tirer droit devant soi"
 echo -e "\n\nAppuyez sur une touche pour continuer et jouer..."
 read a
 ./snake
+echo -e "\n"
 make clean
