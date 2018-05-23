@@ -16,7 +16,6 @@ void GererClavier(unsigned char touche, int x, int y);
 int collision_snake();
 void attaque_snake();
 
-
 int main(int argc, char* argv[]){
     score = time(NULL);
     speedmod = 1;
@@ -62,13 +61,52 @@ void affichage(){
     }
     gluLookAt(vision.x, vision.y, vision.z, eye.x, eye.y, eye.z, 0, 0, 1);
 
+    // Affichage du score 
+    if(interrupteur == 0){
+      GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
+      int scorevar = time(NULL)-score;
+      int j=0;
+      while(scorevar > 9){
+        int l = scorevar%10;
+        glutBitmapCharacter(font_style, 48+l);
+        j++;
+        scorevar /= 10;
+      }
+      switch(angle){
+          case 0 : glRasterPos3f(sHead.x -5*1.5*cos(angle*2*PI/360), sHead.y+2, sHead.z+1);
+          case 90 : case -270 : glRasterPos3f(sHead.x+2,sHead.y-5*1.5*sin(angle*2*PI/360),sHead.z+1);
+          case 180 : case -180 : glRasterPos3f(sHead.x-5*1.5*cos(angle*2*PI/360),sHead.y+2,sHead.z+1);
+          case 270 : case -90 : glRasterPos3f(sHead.x+2,sHead.y+j-5*1.5*cos(angle*2*PI/360),sHead.z+1);
+      }
+      glutBitmapCharacter(font_style, 48+scorevar);  
+    }
+    if(interrupteur == 1){
+      GLvoid *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
+      int scorevar = time(NULL)-score;
+      int j=0;
+      while(scorevar > 9){
+        int l = scorevar%10;
+        glutBitmapCharacter(font_style, 48+l);
+        j++;
+        scorevar /= 10;
+      }
+      switch(angle){
+          case 0 : glRasterPos3f(sHead.x+j,sHead.y+2,sHead.z+1.7);
+          case 90 : case -270 : glRasterPos3f(sHead.x+j*1.5,sHead.y+2,sHead.z+1.7);
+          case 180 : case -180 : glRasterPos3f(sHead.x+2,sHead.y+j,sHead.z+1.7);
+          case 270 : case -90 : glRasterPos3f(sHead.x+2,sHead.y+j*1.5,sHead.z+1.7);
+      }
+      glutBitmapCharacter(font_style, 48+scorevar);
+    }
     afficher_grille(jeu);
     
     glPushMatrix();
     glTranslatef(sHead.x, sHead.y, 0);
     glRotatef(angle, 0, 0, 1);
     glTranslatef(-sHead.x, -sHead.y, 0);
-    serpent(sHead.x, sHead.y, sHead.z+1.8);
+    if(vie>2000) serpent(sHead.x, sHead.y, sHead.z+1.8, 0.1, 0.5, 0.2);
+    if(vie>1000 && vie <=2000) serpent(sHead.x, sHead.y, sHead.z+1.8, 1.0, 0.5, 0.0);
+    if(vie>0 && vie <= 1000) serpent(sHead.x, sHead.y, sHead.z+1.8, 1.0, 0.0, 0.0);
     glPopMatrix();
     
     glutKeyboardFunc(GererClavier);
@@ -134,6 +172,8 @@ void GererClavier(unsigned char touche, int x, int y){
         break;
     case 'x' : attaque_snake();
         break;
+    case 'p' : sHead.x=50; sHead.y =50; 
+        break;
     }
 }
 
@@ -164,32 +204,32 @@ int collision_snake(){
     switch(o.type){
     case 1:
       if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy){
-	vie-=500;
-	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+	vie--;
+	if(vie <= 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
 	return 1;
       }
         else
             return 0;
     case 2:
         if(o.m.p.x <= fx && o.m.p.x + o.m.longueur >= fx && o.m.p.y <= fy && o.m.p.y + o.m.largeur >= fy){
-	vie-=500;
-	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+	vie--;
+	if(vie <= 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}
         else
             return 0;
     case 3:
         if(o.a.p.x - o.a.t.rayon <= fx && o.a.p.x + o.a.t.rayon >= fx && o.a.p.y - o.a.t.rayon <= fy && o.a.p.y + o.a.t.rayon >= fy){
-	vie-=500;
-	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+	vie--;
+	if(vie <= 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}
         else
             return 0;
     case 4:
         if(o.e.p.x - 3 <= fx && o.e.p.x + 3 >= fx && o.e.p.y -3 <= fy && o.e.p.y + 3 >= fy){
-            vie-=500;
-            if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+            vie-=100;
+            if(vie <= 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
         }
         else
@@ -198,14 +238,14 @@ int collision_snake(){
         if(o.bn.p.x -2 <= fx && o.bn.p.x + 2 >= fx && o.bn.p.y -2 <= fy && o.bn.p.y + 2 >= fy){
             switch(o.bn.type){
             case 0: speedmod*=1.2; break;
-            case 1: speedmod*=1.2; if(vie < 3) vie+=250; break;
+            case 1: speedmod*=1.2; if(vie < 2900) vie+=250; break;
             }
             jeu[x][y].type = 0; ajouter_bouboule();
         }
         return 0;
     default :
         if(fx <= 0 || fx >= LONGUEUR || fy <= 0 || fy >= LARGEUR){
-	vie-=500;
+	vie--;
 	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
 	}

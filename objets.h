@@ -72,5 +72,5 @@ void affiche_arbre(arbre a);
 
 void pin(float x, float y, float z);
 
-void serpent(int x, int y, int z);
+void serpent(int x, int y, int z, float c1, float c2, float c3);
 
