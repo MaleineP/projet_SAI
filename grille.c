@@ -80,8 +80,8 @@ void afficher_grille(){
 void ajouter_bouboule(){
   int rx, ry, bouboule = 1;
   float fx, fy;
-  for(rx = rand()%(LONGUEUR/30); bouboule; rx = (rx+1)%(LONGUEUR/30)){
-    for(ry = rand()%(LARGEUR/30); bouboule;ry = (ry+1)%(LARGEUR/30)){
+  for(rx = rand()%((LONGUEUR/30)-2)+1; bouboule; rx = (rx+1)%((LONGUEUR/30)-1)){
+    for(ry = rand()%((LARGEUR/30)-2)+1; bouboule; ry = (ry+1)%((LARGEUR/30)-1)){
       if(jeu[rx][ry].type == 0){
 	jeu[rx][ry].type = 5;
 	fx = rand()%(LONGUEUR/30) + rx*30;
@@ -94,16 +94,16 @@ void ajouter_bouboule(){
 }
 
 void ajouter_ennemis(){
-  int rx, ry, ennemi = 1;
+  int rx, ry, ennemi = 2;
   float fx, fy;
-  for(rx = rand()%(LONGUEUR/30); ennemi; rx = (rx+1)%(LONGUEUR/30)){
-    for(ry = rand()%(LARGEUR/30); ennemi;ry = (ry+1)%(LARGEUR/30)){
+  for(rx = rand()%(LONGUEUR/30); ennemi != 0; rx = (rx+1)%(LONGUEUR/30)){
+    for(ry = rand()%(LARGEUR/30); ennemi != 0;ry = (ry+1)%(LARGEUR/30)){
       if(jeu[rx][ry].type == 0 && (rx != 1 && ry != 1)){
 	jeu[rx][ry].type = 4;
 	fx = rand()%(LONGUEUR/30) + rx*30;
 	fy = rand()%(LARGEUR/30) + ry*30;
 	jeu[rx][ry].e = creer_ennemi(fx, fy, 0);
-	ennemi = 0;
+	ennemi--;
       }
     }
   }

@@ -227,13 +227,11 @@ void attaque_snake(){
             jeu[x][y].type = 0;
             nb_e_tue++;
             ajouter_ennemis();
-            ajouter_ennemis();
         }
         else{
             if(x+fx >=0 && x+fx < LONGUEUR/30 && y+fy >=0 && y+fy < LARGEUR/30){
                 if(jeu[x+fx][y+fy].type == 4){
                     jeu[x+fx][y+fy].type= 0;
-                    ajouter_ennemis();
                     ajouter_ennemis();
                     nb_e_tue++;
                 }
