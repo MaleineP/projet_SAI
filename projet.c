@@ -160,18 +160,27 @@ int collision_snake(){
     }
     switch(o.type){
     case 1:
-        if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy)
-            return 1;
+      if(o.b.p.x + o.b.radius >= fx && o.b.p.x - o.b.radius <= fx && o.b.p.y + o.b.radius >= fy && o.b.p.y - o.b.radius <= fy){
+	vie--;
+	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
+	return 1;
+      }
         else
             return 0;
     case 2:
-        if(o.m.p.x <= fx && o.m.p.x + o.m.longueur >= fx && o.m.p.y <= fy && o.m.p.y + o.m.largeur >= fy)
+        if(o.m.p.x <= fx && o.m.p.x + o.m.longueur >= fx && o.m.p.y <= fy && o.m.p.y + o.m.largeur >= fy){
+	vie--;
+	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
+	}
         else
             return 0;
     case 3:
-        if(o.a.p.x - o.a.t.rayon <= fx && o.a.p.x + o.a.t.rayon >= fx && o.a.p.y - o.a.t.rayon <= fy && o.a.p.y + o.a.t.rayon >= fy)
+        if(o.a.p.x - o.a.t.rayon <= fx && o.a.p.x + o.a.t.rayon >= fx && o.a.p.y - o.a.t.rayon <= fy && o.a.p.y + o.a.t.rayon >= fy){
+	vie--;
+	if(vie == 0){ printf("partie terminée\n"); printf("Votre score est de %ld secondes\n", time(NULL) - score); printf("Nombre d'ennemis tué : %d\n", nb_e_tue); exit(0);}
             return 1;
+	}
         else
             return 0;
     case 4:
