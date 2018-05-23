@@ -1,6 +1,9 @@
 #include "tp4.h"
 #include <time.h>
 
+#define LONGUEUR 600
+#define LARGEUR 300
+
 typedef struct ennemi{
   point p;
 }ennemi;

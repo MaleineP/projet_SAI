@@ -5,8 +5,8 @@ objet creer_objet(int x, int y){
   float fx, fy;
   int alea;
   objet o;
-  fx = rand()%30 + x*30;
-  fy = rand()%30 + y*30;
+  fx = rand()%(LONGUEUR/30) + x*30;
+  fy = rand()%(LARGEUR/30) + y*30;
   alea = rand()%10;
   switch(alea){
   case 1 : o.type = 1; o.b = buisson_crea(fx, fy, 0); break;
